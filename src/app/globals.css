@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 262 0% 100%;
+    --background: 0 0% 99%;
     --foreground: 262 0% 10%;
     --card: 262 0% 100%;
     --card-foreground: 262 0% 15%;
@@ -12,7 +12,7 @@
     --popover-foreground: 262 95% 10%;
     --primary: 262 50% 32.2%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 262 10% 90%;
+    --secondary: 43 89.6% 62.2%;
     --secondary-foreground: 0 0% 0%;
     --muted: 224 10% 95%;
     --muted-foreground: 262 0% 40%;
@@ -34,7 +34,7 @@
     --popover-foreground: 262 0% 100%;
     --primary: 262 50% 32.2%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 262 10% 20%;
+    --secondary: 43 89.6% 62.2%;
     --secondary-foreground: 0 0% 100%;
     --muted: 224 10% 25%;
     --muted-foreground: 262 0% 65%;
@@ -55,5 +55,11 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .navbar-link {
+    @apply text-primary font-bold text-lg border-transparent border-b-2 transition-colors hover:border-secondary delay-0 ease-in-out;
   }
 }
