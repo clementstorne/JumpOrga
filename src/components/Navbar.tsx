@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { LINKS } from "@/lib/const";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
@@ -26,18 +27,6 @@ const BurgerButton = ({ className, isOpen, onClick }: BurgerButtonProps) => {
     </Button>
   );
 };
-
-type Link = {
-  href: string;
-  label: string;
-};
-
-const links: Link[] = [
-  {
-    href: "/",
-    label: "Accueil",
-  },
-];
 
 const Navbar = () => {
   const currentPath = usePathname();
@@ -107,7 +96,7 @@ const Navbar = () => {
           "max-md:hidden"
         )}
       >
-        {links.map((link, index) => (
+        {LINKS.map((link, index) => (
           <Link key={index} href={link.href} className="navbar-link">
             {link.label}
           </Link>
@@ -115,6 +104,7 @@ const Navbar = () => {
       </nav>
 
       <nav
+        data-testid="drawer"
         className={cn(
           "fixed top-20 left-0 right-0 h-full bg-slate-50 overflow-auto",
           "flex flex-col justify-start items-center space-y-8 py-8",
@@ -123,7 +113,7 @@ const Navbar = () => {
           !isOpen && "-translate-x-full"
         )}
       >
-        {links.map((link, index) => (
+        {LINKS.map((link, index) => (
           <Link key={index} href={link.href} className="navbar-link">
             {link.label}
           </Link>
