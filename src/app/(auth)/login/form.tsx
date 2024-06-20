@@ -74,7 +74,7 @@ const LoginForm = ({ className }: LoginFormProps) => {
       const res = await signIn("credentials", {
         email: values.email,
         password: values.password,
-        callbackUrl: "/feed",
+        callbackUrl: "/dashboard",
         redirect: false,
       });
 
