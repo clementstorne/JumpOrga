@@ -59,7 +59,7 @@
 }
 
 @layer components {
-  .navbar-link {
+  .link {
     @apply text-primary font-bold text-lg border-transparent border-b-2 transition-colors hover:border-secondary delay-0 ease-in-out;
   }
 }

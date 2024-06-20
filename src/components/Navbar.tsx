@@ -97,7 +97,7 @@ const Navbar = () => {
         )}
       >
         {LINKS.map((link, index) => (
-          <Link key={index} href={link.href} className="navbar-link">
+          <Link key={index} href={link.href} className="link">
             {link.label}
           </Link>
         ))}
@@ -114,7 +114,7 @@ const Navbar = () => {
         )}
       >
         {LINKS.map((link, index) => (
-          <Link key={index} href={link.href} className="navbar-link">
+          <Link key={index} href={link.href} className="link">
             {link.label}
           </Link>
         ))}
