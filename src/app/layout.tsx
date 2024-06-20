@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
@@ -20,7 +21,9 @@ export default function RootLayout({
     <html lang="fr">
       <body className={nunito.className}>
         <Navbar />
-        {children}
+        <main className={cn("p-4 mt-20", "md:p-8", "lg:mt-24")}>
+          {children}
+        </main>
       </body>
     </html>
   );
