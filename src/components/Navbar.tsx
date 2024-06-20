@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import { LINKS } from "@/lib/const";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type BurgerButtonProps = {
@@ -26,6 +27,32 @@ const BurgerButton = ({ className, isOpen, onClick }: BurgerButtonProps) => {
       {isOpen ? <X size={32} /> : <Menu size={32} />}
     </Button>
   );
+};
+
+const LogoutButton = () => {
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  if (!session) {
+    return (
+      <Link href="/login" className="link">
+        Se connecter
+      </Link>
+    );
+  } else {
+    return (
+      <Button
+        variant="link"
+        className="p-0 rounded-none h-7"
+        onClick={() => {
+          signOut();
+          router.push("/login");
+        }}
+      >
+        Se déconnecter
+      </Button>
+    );
+  }
 };
 
 const Navbar = () => {
@@ -97,10 +124,15 @@ const Navbar = () => {
         )}
       >
         {LINKS.map((link, index) => (
-          <Link key={index} href={link.href} className="link">
+          <Link
+            key={index}
+            href={link.href}
+            className={cn("link", currentPath === link.href && "border-minsk")}
+          >
             {link.label}
           </Link>
         ))}
+        <LogoutButton />
       </nav>
 
       <nav
@@ -118,6 +150,7 @@ const Navbar = () => {
             {link.label}
           </Link>
         ))}
+        <LogoutButton />
       </nav>
     </header>
   );
