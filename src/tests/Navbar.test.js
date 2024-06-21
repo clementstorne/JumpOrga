@@ -1,20 +1,30 @@
-import Navbar from "@/components/Navbar";
-import { LINKS } from "@/lib/const";
+import Navbar from "@components/Navbar";
+import { LINKS } from "@lib/const";
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { usePathname } from "next/navigation";
+import { SessionProvider } from "next-auth/react";
+import { usePathname, useRouter } from "next/navigation";
 
 jest.mock("next/navigation", () => ({
   usePathname: jest.fn(),
+  useRouter: jest.fn(),
 }));
 
 describe("Navbar", () => {
   beforeEach(() => {
     usePathname.mockReturnValue("/");
+    useRouter.mockReturnValue({
+      push: jest.fn(),
+      prefetch: jest.fn(),
+    });
   });
 
+  const renderWithProviders = (ui) => {
+    return render(<SessionProvider session={null}>{ui}</SessionProvider>);
+  };
+
   it("renders the Navbar component", () => {
-    render(<Navbar />);
+    renderWithProviders(<Navbar />);
     const logo = screen.getByAltText("JumpOrga");
     expect(logo).toBeInTheDocument();
 
@@ -32,7 +42,7 @@ describe("Navbar", () => {
   });
 
   it("toggles the menu when the burger button is clicked", () => {
-    render(<Navbar />);
+    renderWithProviders(<Navbar />);
     const burgerButton = screen.getByLabelText("Ouvrir le menu");
     const drawer = screen.getByTestId("drawer");
 
@@ -49,7 +59,7 @@ describe("Navbar", () => {
   });
 
   it("closes the menu when the Escape key is pressed", () => {
-    render(<Navbar />);
+    renderWithProviders(<Navbar />);
     const burgerButton = screen.getByLabelText("Ouvrir le menu");
     const drawer = screen.getByTestId("drawer");
 
@@ -63,7 +73,7 @@ describe("Navbar", () => {
   });
 
   it("closes the menu when the route changes", () => {
-    const { rerender } = render(<Navbar />);
+    const { rerender } = renderWithProviders(<Navbar />);
     const burgerButton = screen.getByLabelText("Ouvrir le menu");
     const drawer = screen.getByTestId("drawer");
 
@@ -73,7 +83,11 @@ describe("Navbar", () => {
 
     // Change the route
     usePathname.mockReturnValue("/new-route");
-    rerender(<Navbar />);
+    rerender(
+      <SessionProvider session={null}>
+        <Navbar />
+      </SessionProvider>
+    );
     expect(drawer).toHaveClass("-translate-x-full");
   });
 });

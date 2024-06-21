@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@components/ui/button";
 import {
   Form,
   FormControl,
@@ -8,10 +8,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+} from "@components/ui/form";
+import { Input } from "@components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { cn } from "@lib/utils";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -97,6 +97,15 @@ const LoginForm = ({ className }: LoginFormProps) => {
           className
         )}
       >
+        <div className={cn("text-center space-y-2", "md:text-justify")}>
+          <h1 className="md:text-left">Bienvenue chez JumpOrga</h1>
+          <p className=" text-foreground">
+            Connectez-vous à votre compte pour accéder à toutes les
+            fonctionnalités de notre plateforme de gestion de concours de saut
+            d&apos;obstacles.
+          </p>
+        </div>
+
         {errorMessage && (
           <p className="text-sm font-bold text-destructive">{errorMessage}</p>
         )}
@@ -132,15 +141,21 @@ const LoginForm = ({ className }: LoginFormProps) => {
           )}
         />
 
+        <div className="w-full flex justify-end">
+          <Link href={"/forgot-password"} className="link">
+            Mot de passe oublié ?
+          </Link>
+        </div>
+
         <div className="w-full !mt-14 flex flex-col space-y-4">
-          <Button type="submit" size="lg" className="text-lg font-bold">
-            Je me connecte
+          <Button type="submit" size="lg">
+            Se connecter
           </Button>
           <Link
             href={"/signup"}
             className={buttonVariants({ variant: "outline" })}
           >
-            Je n&apos;ai pas encore de compte
+            Créer un compte
           </Link>
         </div>
       </form>

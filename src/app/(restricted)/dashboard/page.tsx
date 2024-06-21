@@ -1,10 +1,10 @@
-import { authOptions } from "@/lib/auth";
-import { getUserData } from "@/lib/data";
 import { DbUser } from "@/types";
+import { getUserData } from "@lib/actions/users/getUserData";
+import { authOptions } from "@lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-const Page = async () => {
+const DashboardPage = async () => {
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -17,4 +17,4 @@ const Page = async () => {
   return <div>Bonjour {userFullName}</div>;
 };
 
-export default Page;
+export default DashboardPage;

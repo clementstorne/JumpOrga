@@ -1,6 +1,7 @@
 "use client";
 
-import { Button, buttonVariants } from "@/components/ui/button";
+import { signUp } from "@/lib/actions/users/signUp";
+import { Button, buttonVariants } from "@components/ui/button";
 import {
   Form,
   FormControl,
@@ -8,17 +9,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useToast } from "@/components/ui/use-toast";
-import { cn } from "@/lib/utils";
+} from "@components/ui/form";
+import { Input } from "@components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@components/ui/radio-group";
+import { useToast } from "@components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { checkIfUserExists } from "@lib/actions/users/checkIfUserExists";
+import { cn } from "@lib/utils";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { checkIfUserExists, createNewUser } from "./action";
 
 const UserRoleEnum = z.enum(["official", "organizer"]);
 type UserRoleEnum = z.infer<typeof UserRoleEnum>;
@@ -141,9 +142,10 @@ const SignupForm = ({ className }: SignupFormProps) => {
         return;
       } else {
         toast({
-          description: "Votre profil a été créé",
+          title: "Bienvenue chez JumpOrga !",
+          description: "Votre compte a été créé avec succès.",
         });
-        await createNewUser(values);
+        await signUp(values);
       }
     } catch (error) {
       console.error(error);
@@ -159,6 +161,15 @@ const SignupForm = ({ className }: SignupFormProps) => {
           className
         )}
       >
+        <div className={cn("text-center space-y-2", "md:text-justify")}>
+          <h1 className="md:text-left">Créer un compte JumpOrga</h1>
+          <p className=" text-foreground">
+            Rejoignez notre communauté pour organiser ou participer à des
+            concours de saut d&apos;obstacles. Remplissez le formulaire
+            ci-dessous pour créer votre compte.
+          </p>
+        </div>
+
         {errorMessage && (
           <p className="text-sm font-bold text-red-700">{errorMessage}</p>
         )}
@@ -263,8 +274,8 @@ const SignupForm = ({ className }: SignupFormProps) => {
         />
 
         <div className="w-full !mt-14 flex flex-col space-y-4">
-          <Button type="submit" size="lg" className="!w-full">
-            Je crée mon compte
+          <Button type="submit" size="lg">
+            Créer mon compte
           </Button>
           <Link
             href={"/login"}

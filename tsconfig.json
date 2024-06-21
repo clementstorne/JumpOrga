@@ -20,6 +20,8 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@lib/*": ["./src/lib/*"],
       "@public/*": ["./public/*"]
     }
   },
@@ -28,7 +30,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/tests/Navbar.test.js"
+    "src/tests/**/*.ts",
+    "src/tests/**/*.tsx"
   ],
   "exclude": ["node_modules"]
 }

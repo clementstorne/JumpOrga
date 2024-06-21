@@ -8,12 +8,16 @@ datasource db {
 }
 
 model User {
-  id        String     @id @default(uuid())
-  email     String     @unique(map: "email")
-  password  String
-  firstname String
-  lastname  String
-  role      UserRole
+  id                       String    @id @default(uuid())
+  email                    String    @unique(map: "email")
+  password                 String
+  firstname                String
+  lastname                 String
+  role                     UserRole
+  resetPasswordToken       String?   @unique
+  resetPasswordTokenExpiry DateTime?
+  emailVerified            Boolean   @default(false)
+  emailVerificationToken   String?   @unique
 }
 
 enum UserRole {
