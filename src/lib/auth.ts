@@ -1,6 +1,6 @@
-import prisma from "@/lib/prisma";
-import { DbUser } from "@/types";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import prisma from "@lib/prisma";
+import { DbUser } from "@types";
 import bcrypt from "bcrypt";
 import { NextAuthOptions } from "next-auth";
 import type { Adapter } from "next-auth/adapters";

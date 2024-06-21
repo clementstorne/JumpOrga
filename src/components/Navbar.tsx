@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { LINKS } from "@/lib/const";
-import { cn } from "@/lib/utils";
+import { Button } from "@components/ui/button";
+import { LINKS } from "@lib/const";
+import { cn } from "@lib/utils";
 import { Menu, X } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
@@ -43,7 +43,7 @@ const LogoutButton = () => {
     return (
       <Button
         variant="link"
-        className="p-0 rounded-none h-7"
+        className="p-0 rounded-none h-7 text-lg"
         onClick={() => {
           signOut();
           router.push("/login");

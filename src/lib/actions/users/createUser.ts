@@ -1,24 +1,10 @@
 "use server";
 
-import prisma from "@/lib/prisma";
+import prisma from "@lib/prisma";
 import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
 
-export const checkIfUserExists = async (email: string) => {
-  const userAlreadyExists = await prisma.user.findUnique({
-    where: {
-      email: email,
-    },
-  });
-
-  if (userAlreadyExists) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-export const createNewUser = async ({
+export const createUser = async ({
   firstname,
   lastname,
   email,
