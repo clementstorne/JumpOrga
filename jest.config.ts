@@ -20,6 +20,4 @@ const config: Config = {
   },
 };
 
-console.log(config); // Ajoutez cette ligne pour vérifier la configuration Jest
-
 export default createJestConfig(config);

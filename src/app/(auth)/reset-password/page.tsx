@@ -5,9 +5,9 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "JumpOrga - Créer un compte",
+  title: "JumpOrga - Réinitialiser le mot de passe",
   description:
-    "Rejoignez JumpOrga et commencez à organiser vos événements de saut d'obstacles dès aujourd'hui. Créez un compte gratuitement et accédez à toutes nos fonctionnalités.",
+    "Réinitialisez votre mot de passe pour accéder à votre compte JumpOrga et continuer à organiser vos événements de saut d'obstacles.",
 };
 
 type ResetPasswordPageProps = {

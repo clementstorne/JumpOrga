@@ -1,5 +1,6 @@
 "use client";
 
+import { signUp } from "@/lib/actions/users/signUp";
 import { Button, buttonVariants } from "@components/ui/button";
 import {
   Form,
@@ -14,7 +15,6 @@ import { RadioGroup, RadioGroupItem } from "@components/ui/radio-group";
 import { useToast } from "@components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { checkIfUserExists } from "@lib/actions/users/checkIfUserExists";
-import { createUser } from "@lib/actions/users/createUser";
 import { cn } from "@lib/utils";
 import Link from "next/link";
 import { useState } from "react";
@@ -145,7 +145,7 @@ const SignupForm = ({ className }: SignupFormProps) => {
           title: "Bienvenue chez JumpOrga !",
           description: "Votre compte a été créé avec succès.",
         });
-        await createUser(values);
+        await signUp(values);
       }
     } catch (error) {
       console.error(error);

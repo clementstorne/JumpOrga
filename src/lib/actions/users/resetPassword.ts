@@ -3,6 +3,7 @@
 import ResetPasswordEmailTemplate from "@components/email-templates/ResetPasswordEmailTemplate";
 import prisma from "@lib/prisma";
 import crypto from "crypto";
+import { redirect } from "next/navigation";
 import { Resend } from "resend";
 
 export const resetPassword = async (email: string) => {
@@ -42,5 +43,5 @@ export const resetPassword = async (email: string) => {
     }) as React.ReactElement,
   });
 
-  return "Password reset email sent";
+  redirect("/login");
 };

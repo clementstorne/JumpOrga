@@ -3,15 +3,20 @@ import { LINKS } from "@lib/const";
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { SessionProvider } from "next-auth/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 jest.mock("next/navigation", () => ({
   usePathname: jest.fn(),
+  useRouter: jest.fn(),
 }));
 
 describe("Navbar", () => {
   beforeEach(() => {
     usePathname.mockReturnValue("/");
+    useRouter.mockReturnValue({
+      push: jest.fn(),
+      prefetch: jest.fn(),
+    });
   });
 
   const renderWithProviders = (ui) => {

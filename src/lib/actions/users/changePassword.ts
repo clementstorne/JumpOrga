@@ -12,20 +12,37 @@ export const changePassword = async (
     where: {
       resetPasswordToken: resetPasswordToken,
     },
+    select: {
+      id: true,
+      resetPasswordTokenExpiry: true,
+    },
   });
 
   if (!user) {
     throw new Error("User not found");
   }
 
+  const resetPasswordTokenExpiry = user.resetPasswordTokenExpiry;
+  if (!resetPasswordTokenExpiry) {
+    throw new Error("No Token expiry date");
+  }
+
+  const today = new Date();
+
+  if (today > resetPasswordTokenExpiry) {
+    throw new Error("Token expired");
+  }
+
   const hash = await bcrypt.hash(password, 10);
 
   await prisma.user.update({
     where: {
-      resetPasswordToken: resetPasswordToken,
+      id: user.id,
     },
     data: {
       password: hash,
+      resetPasswordToken: null,
+      resetPasswordTokenExpiry: null,
     },
   });
   redirect("/login");

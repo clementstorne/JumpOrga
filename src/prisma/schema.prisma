@@ -16,6 +16,8 @@ model User {
   role                     UserRole
   resetPasswordToken       String?   @unique
   resetPasswordTokenExpiry DateTime?
+  emailVerified            Boolean   @default(false)
+  emailVerificationToken   String?   @unique
 }
 
 enum UserRole {
