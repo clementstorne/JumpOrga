@@ -25,3 +25,14 @@ enum UserRole {
   official
   admin
 }
+
+model Event {
+  id                String  @id @default(uuid())
+  start             String  @db.VarChar(20)
+  finish            String  @db.VarChar(20)
+  place             String
+  level             String
+  hasJudge          Boolean @default(false)
+  hasSteward        Boolean @default(false)
+  hasCourseDesigner Boolean @default(false)
+}
