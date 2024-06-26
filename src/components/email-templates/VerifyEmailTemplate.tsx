@@ -7,6 +7,8 @@ const VerifyEmailTemplate = ({
   email,
   emailVerificationToken,
 }: VerifyEmailTemplateProps) => {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
   return (
     <div
       style={{
@@ -35,7 +37,7 @@ const VerifyEmailTemplate = ({
           adresse email en cliquant sur le lien ci-dessous :
         </p>
         <a
-          href={`http://localhost:3000/verify-email?token=${emailVerificationToken}`}
+          href={`${baseUrl}/verify-email?token=${emailVerificationToken}`}
           style={{
             display: "inline-block",
             padding: "10px 20px",

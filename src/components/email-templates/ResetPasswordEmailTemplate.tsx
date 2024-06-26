@@ -7,6 +7,8 @@ const ResetPasswordEmailTemplate = ({
   email,
   resetPasswordToken,
 }: ResetPasswordEmailTemplateProps) => {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
   return (
     <div
       style={{
@@ -35,7 +37,7 @@ const ResetPasswordEmailTemplate = ({
           lien ci-dessous pour choisir un nouveau mot de passe :
         </p>
         <a
-          href={`http://localhost:3000/reset-password?token=${resetPasswordToken}`}
+          href={`${baseUrl}/reset-password?token=${resetPasswordToken}`}
           style={{
             display: "inline-block",
             padding: "10px 20px",
