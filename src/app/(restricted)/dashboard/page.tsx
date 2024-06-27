@@ -1,9 +1,8 @@
-import { buttonVariants } from "@/components/ui/button";
 import { DbUser } from "@/types";
-import { getUserData } from "@lib/actions/users/getUserData";
+import { getUserData } from "@actions/users/getUserData";
+import EventsSection from "@components/EventsSection";
 import { authOptions } from "@lib/auth";
 import { getServerSession } from "next-auth";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 const DashboardPage = async () => {
@@ -17,14 +16,12 @@ const DashboardPage = async () => {
   const userFullName = `${user.firstname} ${user.lastname}`;
 
   return (
-    <div>
+    <div className="space-y-8">
       <h1>Bonjour {userFullName}</h1>
-      <Link
-        href="/dashboard/new-event"
-        className={buttonVariants({ variant: "default" })}
-      >
-        Ajouter un nouveau concours
-      </Link>
+
+      <div className="grid grid-cols-2 gap-8">
+        <EventsSection />
+      </div>
     </div>
   );
 };

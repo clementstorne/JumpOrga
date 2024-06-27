@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@components/ui/button";
 import { LINKS } from "@lib/const";
 import { cn } from "@lib/utils";
+import { Button } from "@ui/button";
 import { Menu, X } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";

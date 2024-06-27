@@ -1,6 +1,9 @@
 "use client";
 
-import { Button } from "@components/ui/button";
+import { changePassword } from "@actions/users/changePassword";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { cn } from "@lib/utils";
+import { Button } from "@ui/button";
 import {
   Form,
   FormControl,
@@ -8,12 +11,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@components/ui/form";
-import { Input } from "@components/ui/input";
-import { useToast } from "@components/ui/use-toast";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { changePassword } from "@lib/actions/users/changePassword";
-import { cn } from "@lib/utils";
+} from "@ui/form";
+import { Input } from "@ui/input";
+import { useToast } from "@ui/use-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

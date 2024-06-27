@@ -1,7 +1,10 @@
 "use client";
 
-import { signUp } from "@/lib/actions/users/signUp";
-import { Button, buttonVariants } from "@components/ui/button";
+import { checkIfUserExists } from "@actions/users/checkIfUserExists";
+import { signUp } from "@actions/users/signUp";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { cn } from "@lib/utils";
+import { Button, buttonVariants } from "@ui/button";
 import {
   Form,
   FormControl,
@@ -9,13 +12,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@components/ui/form";
-import { Input } from "@components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@components/ui/radio-group";
-import { useToast } from "@components/ui/use-toast";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { checkIfUserExists } from "@lib/actions/users/checkIfUserExists";
-import { cn } from "@lib/utils";
+} from "@ui/form";
+import { Input } from "@ui/input";
+import { RadioGroup, RadioGroupItem } from "@ui/radio-group";
+import { useToast } from "@ui/use-toast";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

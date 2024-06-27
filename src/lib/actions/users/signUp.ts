@@ -1,6 +1,6 @@
 "use server";
 
-import VerifyEmailTemplate from "@/components/email-templates/VerifyEmailTemplate";
+import VerifyEmailTemplate from "@components/email-templates/VerifyEmailTemplate";
 import prisma from "@lib/prisma";
 import bcrypt from "bcrypt";
 import crypto from "crypto";

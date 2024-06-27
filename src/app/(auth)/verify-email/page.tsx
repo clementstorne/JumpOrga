@@ -1,4 +1,4 @@
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@components/ui/button";
 import prisma from "@lib/prisma";
 import { cn } from "@lib/utils";
 import { Metadata } from "next";

@@ -57,8 +57,17 @@
     @apply bg-background text-foreground;
   }
 
+  h1,
+  h2 {
+    @apply font-black text-primary;
+  }
+
   h1 {
-    @apply font-black text-3xl text-primary;
+    @apply text-3xl;
+  }
+
+  h2 {
+    @apply text-xl;
   }
 }
 

@@ -1,8 +1,13 @@
 "use client";
 
+import { createEvent } from "@actions/events/createEvent";
 import OfficialNeededField from "@components/OfficialNeededField";
-import { Button } from "@components/ui/button";
-import { Checkbox } from "@components/ui/checkbox";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LEVELS } from "@lib/const";
+import formSchema from "@lib/schemas/events";
+import { cn } from "@lib/utils";
+import { Button } from "@ui/button";
+import { Checkbox } from "@ui/checkbox";
 import {
   Form,
   FormControl,
@@ -10,13 +15,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@components/ui/form";
-import { Input } from "@components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createEvent } from "@lib/actions/events/createEvent";
-import { LEVELS } from "@lib/const";
-import formSchema from "@lib/schemas/events";
-import { cn } from "@lib/utils";
+} from "@ui/form";
+import { Input } from "@ui/input";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";

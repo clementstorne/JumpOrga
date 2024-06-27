@@ -1,5 +1,5 @@
 import EventForm from "@components/EventForm";
-import { Card, CardContent, CardHeader } from "@components/ui/card";
+import { Card, CardContent, CardHeader } from "@ui/card";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
