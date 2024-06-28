@@ -17,11 +17,16 @@ import {
   FormMessage,
 } from "@ui/form";
 import { Input } from "@ui/input";
+import { Switch } from "@ui/switch";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const EventForm = () => {
+type EventFormProps = {
+  userId: string;
+};
+
+const EventForm = ({ userId }: EventFormProps) => {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -35,11 +40,11 @@ const EventForm = () => {
       hasCourseDesigner: "false",
       hasSteward: "false",
       hasTimeKeeper: "false",
+      isVisible: false,
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
     const data = {
       ...values,
       level: values.level.join("-"),
@@ -48,7 +53,7 @@ const EventForm = () => {
       hasSteward: values.hasSteward === "true",
       hasTimeKeeper: values.hasTimeKeeper === "true",
     };
-    await createEvent(data);
+    await createEvent(userId, data);
     router.push("/dashboard");
   };
 
@@ -61,6 +66,21 @@ const EventForm = () => {
           "md:space-y-8"
         )}
       >
+        <FormField
+          control={form.control}
+          name="isVisible"
+          render={({ field }) => (
+            <FormItem className="w-full flex items-center space-y-0 space-x-2">
+              <FormLabel>Visible pour les officiels ?</FormLabel>
+              <FormControl>
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
         <div
           className={cn(
             "w-full flex flex-col gap-4",

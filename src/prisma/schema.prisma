@@ -18,6 +18,7 @@ model User {
   resetPasswordTokenExpiry DateTime?
   emailVerified            Boolean   @default(false)
   emailVerificationToken   String?   @unique
+  events                   Event[]
 }
 
 enum UserRole {
@@ -28,6 +29,8 @@ enum UserRole {
 
 model Event {
   id                String  @id @default(uuid())
+  owner             User    @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId           String
   start             String  @db.VarChar(20)
   finish            String  @db.VarChar(20)
   place             String
@@ -36,4 +39,5 @@ model Event {
   hasSteward        Boolean @default(false)
   hasCourseDesigner Boolean @default(false)
   hasTimeKeeper     Boolean @default(false)
+  isVisible         Boolean @default(false)
 }

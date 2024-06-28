@@ -20,7 +20,7 @@ const DashboardPage = async () => {
       <h1>Bonjour {userFullName}</h1>
 
       <div className="grid grid-cols-2 gap-8">
-        <EventsSection />
+        <EventsSection userId={user.id} />
       </div>
     </div>
   );

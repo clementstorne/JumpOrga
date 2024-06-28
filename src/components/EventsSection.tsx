@@ -1,5 +1,5 @@
 import { getEvents } from "@actions/events/getEvents";
-import { formatDate, formatEventDates } from "@lib/dateUtils";
+import { formatEventDates } from "@lib/dateUtils";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@ui/card";
@@ -7,10 +7,12 @@ import { Label } from "@ui/label";
 import { Switch } from "@ui/switch";
 import Link from "next/link";
 
-const EventsSection = async () => {
-  const date = new Date("2024-06-30");
-  console.log(formatDate(new Date("2024-06-30")));
-  const events = await getEvents();
+type EventsSectionProps = {
+  userId: string;
+};
+
+const EventsSection = async ({ userId }: EventsSectionProps) => {
+  const events = await getEvents(userId);
   return (
     <Card>
       <CardHeader>
@@ -29,9 +31,11 @@ const EventsSection = async () => {
                     {formatEventDates(event.start, event.finish)}
                   </p>
 
-                  <div className="flex items-center space-x-2">
-                    <Switch id="visible" />
-                    <Label htmlFor="visible">Visible</Label>
+                  <div className="w-16 flex flex-col justify-center items-center">
+                    <Label htmlFor="visible" className="text-sm font-semibold">
+                      {event.isVisible ? "Visible" : "Invisible"}
+                    </Label>
+                    <Switch id="visible" checked={event.isVisible} />
                   </div>
                 </div>
 
