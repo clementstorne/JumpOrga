@@ -3,9 +3,8 @@ import { formatEventDates } from "@lib/dateUtils";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@ui/card";
-import { Label } from "@ui/label";
-import { Switch } from "@ui/switch";
 import Link from "next/link";
+import VisibilitySwitch from "./VisibilitySwitch";
 
 type EventsSectionProps = {
   userId: string;
@@ -13,6 +12,7 @@ type EventsSectionProps = {
 
 const EventsSection = async ({ userId }: EventsSectionProps) => {
   const events = await getEvents(userId);
+
   return (
     <Card>
       <CardHeader>
@@ -32,10 +32,18 @@ const EventsSection = async ({ userId }: EventsSectionProps) => {
                   </p>
 
                   <div className="w-16 flex flex-col justify-center items-center">
-                    <Label htmlFor="visible" className="text-sm font-semibold">
+                    <VisibilitySwitch
+                      eventId={event.id}
+                      eventVisibility={event.isVisible}
+                    />
+                    {/* <Label htmlFor="visible" className="text-sm font-semibold">
                       {event.isVisible ? "Visible" : "Invisible"}
                     </Label>
-                    <Switch id="visible" checked={event.isVisible} />
+                    <Switch
+                      id="visible"
+                      checked={event.isVisible}
+                      onClick={handleOnClick}
+                    /> */}
                   </div>
                 </div>
 
