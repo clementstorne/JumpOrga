@@ -26,7 +26,7 @@ const NewEventPage = async () => {
         <h1>Programmer un concours</h1>
       </CardHeader>
       <CardContent>
-        <EventForm userId={userId} />
+        <EventForm action="create" userId={userId} />
       </CardContent>
     </Card>
   );

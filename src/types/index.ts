@@ -23,6 +23,7 @@ export interface DbEvent {
   hasCourseDesigner: boolean;
   hasSteward: boolean;
   hasTimeKeeper: boolean;
+  isVisible: boolean;
 }
 
 export type LevelId =

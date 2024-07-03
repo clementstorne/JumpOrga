@@ -1,5 +1,6 @@
 "use client";
 
+import { DbEvent } from "@/types";
 import { createEvent } from "@actions/events/createEvent";
 import OfficialNeededField from "@components/OfficialNeededField";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,24 +25,39 @@ import { z } from "zod";
 
 type EventFormProps = {
   userId: string;
+  action: "create" | "update";
+  event?: DbEvent;
 };
 
-const EventForm = ({ userId }: EventFormProps) => {
+const EventForm = ({ userId, action, event }: EventFormProps) => {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      start: "",
-      finish: "",
-      place: "",
-      level: [],
-      hasJudge: "false",
-      hasCourseDesigner: "false",
-      hasSteward: "false",
-      hasTimeKeeper: "false",
-      isVisible: false,
-    },
+    defaultValues:
+      action === "update" && event
+        ? {
+            start: event.start,
+            finish: event.finish,
+            place: event.place,
+            level: event.level.split("-"),
+            hasJudge: event.hasJudge ? "true" : "false",
+            hasCourseDesigner: event.hasCourseDesigner ? "true" : "false",
+            hasSteward: event.hasSteward ? "true" : "false",
+            hasTimeKeeper: event.hasTimeKeeper ? "true" : "false",
+            isVisible: event.isVisible,
+          }
+        : {
+            start: "",
+            finish: "",
+            place: "",
+            level: [],
+            hasJudge: "false",
+            hasCourseDesigner: "false",
+            hasSteward: "false",
+            hasTimeKeeper: "false",
+            isVisible: false,
+          },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -215,7 +231,9 @@ const EventForm = ({ userId }: EventFormProps) => {
 
         <div className={cn("w-full !mt-12 flex flex-col")}>
           <Button size="lg" type="submit" className="font-bold">
-            Créer le concours
+            {action === "create"
+              ? "Créer le concours"
+              : "Mettre à jour le concours"}
           </Button>
         </div>
       </form>

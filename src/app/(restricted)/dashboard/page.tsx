@@ -1,6 +1,7 @@
 import { DbUser } from "@/types";
 import { getUserData } from "@actions/users/getUserData";
-import EventsSection from "@components/EventsSection";
+import FutureEventsSection from "@components/FutureEventsSection";
+import PastEventsSection from "@components/PastEventsSection";
 import { authOptions } from "@lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -20,7 +21,8 @@ const DashboardPage = async () => {
       <h1>Bonjour {userFullName}</h1>
 
       <div className="grid grid-cols-2 gap-8">
-        <EventsSection userId={user.id} />
+        <FutureEventsSection userId={user.id} />
+        <PastEventsSection userId={user.id} />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 
 import prisma from "@lib/prisma";
 
-export const getEvents = async (userId: string) => {
+export const getAllEvents = async (userId: string) => {
   return await prisma.event.findMany({
     where: {
       ownerId: userId,
