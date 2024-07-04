@@ -13,7 +13,7 @@ const formSchema = z.object({
         ),
       "Mauvais format de date"
     ),
-  finish: z
+  end: z
     .string()
     .min(1, {
       message: "Ce champ est requis",

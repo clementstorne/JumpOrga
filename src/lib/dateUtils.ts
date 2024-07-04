@@ -1,3 +1,17 @@
+const decomposeDate = (date: Date) => {
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  return { day, month, year };
+};
+
+export const dateToStringDate = (date: Date) => {
+  const { day, month, year } = decomposeDate(date);
+  return `${year}-${month.toString().padStart(2, "0")}-${day
+    .toString()
+    .padStart(2, "0")}`;
+};
+
 export const formatDate = (date: Date) => {
   const day = String(date.getDate());
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -6,43 +20,36 @@ export const formatDate = (date: Date) => {
   return `${day}/${month}/${year}`;
 };
 
-const decomposeDate = (date: Date) => {
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
-  return { day, month, year };
-};
-
-export const formatEventDates = (start: string, finish: string) => {
+export const formatEventDates = (start: string, end: string) => {
   const startDate = new Date(start);
-  const finishDate = new Date(finish);
+  const endDate = new Date(end);
   const {
     day: startDay,
     month: startMonth,
     year: startYear,
   } = decomposeDate(startDate);
   const {
-    day: finishDay,
-    month: finishMonth,
-    year: finishYear,
-  } = decomposeDate(finishDate);
+    day: endDay,
+    month: endMonth,
+    year: endYear,
+  } = decomposeDate(endDate);
 
-  if (startYear !== finishYear) {
+  if (startYear !== endYear) {
     return `du ${startDay}/${startMonth
       .toString()
-      .padStart(2, "0")}/${startYear} au ${finishDay}/${finishMonth
+      .padStart(2, "0")}/${startYear} au ${endDay}/${endMonth
       .toString()
-      .padStart(2, "0")}/${finishYear}`;
-  } else if (startMonth !== finishMonth) {
+      .padStart(2, "0")}/${endYear}`;
+  } else if (startMonth !== endMonth) {
     return `du ${startDay}/${startMonth
       .toString()
-      .padStart(2, "0")} au ${finishDay}/${finishMonth
+      .padStart(2, "0")} au ${endDay}/${endMonth
       .toString()
-      .padStart(2, "0")}/${finishYear}`;
-  } else if (startDay !== finishDay) {
-    return `du ${startDay} au ${finishDay}/${finishMonth
+      .padStart(2, "0")}/${endYear}`;
+  } else if (startDay !== endDay) {
+    return `du ${startDay} au ${endDay}/${endMonth
       .toString()
-      .padStart(2, "0")}/${finishYear}`;
+      .padStart(2, "0")}/${endYear}`;
   } else {
     return `le ${startDay}/${startMonth
       .toString()

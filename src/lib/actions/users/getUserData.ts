@@ -1,7 +1,7 @@
 import prisma from "@lib/prisma";
 
 export const getUserData = async (userId: string) => {
-  const user = await prisma.user.findUniqueOrThrow({
+  const user = await prisma.user.findUnique({
     where: {
       id: userId,
     },
