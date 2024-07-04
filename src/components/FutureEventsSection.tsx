@@ -1,5 +1,5 @@
-import { getAllEvents } from "@actions/events/getAllEvents";
 import OfficialsTable from "@components/OfficialsTable";
+import { getAllFutureEvents } from "@lib/actions/events/getAllFutureEvents";
 import { formatEventDates } from "@lib/dateUtils";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
@@ -12,7 +12,7 @@ type FutureEventsSectionProps = {
 };
 
 const FutureEventsSection = async ({ userId }: FutureEventsSectionProps) => {
-  const events = await getAllEvents(userId);
+  const events = await getAllFutureEvents(userId);
 
   return (
     <Card>
@@ -40,7 +40,7 @@ const FutureEventsSection = async ({ userId }: FutureEventsSectionProps) => {
                   <p>
                     {event.place} •{" "}
                     <span className="font-normal">
-                      {formatEventDates(event.start, event.finish)}
+                      {formatEventDates(event.start, event.end)}
                     </span>
                   </p>
                   <p className="text-sm font-normal">{event.level}</p>

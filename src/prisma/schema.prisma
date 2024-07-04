@@ -32,7 +32,7 @@ model Event {
   owner             User    @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId           String
   start             String  @db.VarChar(20)
-  finish            String  @db.VarChar(20)
+  end               String  @db.VarChar(20)
   place             String
   level             String
   hasJudge          Boolean @default(false)

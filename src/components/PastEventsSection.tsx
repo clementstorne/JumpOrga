@@ -1,21 +1,34 @@
+import { getAllPastEvents } from "@/lib/actions/events/getAllPastEvents";
+import { getThreePastEvents } from "@/lib/actions/events/getThreePastEvents";
 import { cn } from "@/lib/utils";
-import { getAllEvents } from "@actions/events/getAllEvents";
 import { formatEventDates } from "@lib/dateUtils";
 import { buttonVariants } from "@ui/button";
-import { Card, CardContent, CardHeader } from "@ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@ui/card";
 import Link from "next/link";
 
 type PastEventsSectionProps = {
   userId: string;
+  display: "all" | "three";
 };
 
-const PastEventsSection = async ({ userId }: PastEventsSectionProps) => {
-  const events = await getAllEvents(userId);
+const PastEventsSection = async ({
+  userId,
+  display,
+}: PastEventsSectionProps) => {
+  let events = [];
+  display === "all"
+    ? (events = await getAllPastEvents(userId))
+    : (events = await getThreePastEvents(userId));
+  // const events = await getThreePastEvents(userId);
 
   return (
     <Card>
       <CardHeader>
-        <h2>Mes concours passés</h2>
+        {display === "three" ? (
+          <h2>Mes concours passés</h2>
+        ) : (
+          <h1>Mes concours passés</h1>
+        )}
       </CardHeader>
       <CardContent>
         {events.length === 0 ? (
@@ -32,7 +45,7 @@ const PastEventsSection = async ({ userId }: PastEventsSectionProps) => {
                   <p>
                     {event.place} •{" "}
                     <span className="font-normal">
-                      {formatEventDates(event.start, event.finish)}
+                      {formatEventDates(event.start, event.end)}
                     </span>
                   </p>
                   <p className="text-sm font-normal">{event.level}</p>
@@ -42,6 +55,16 @@ const PastEventsSection = async ({ userId }: PastEventsSectionProps) => {
           </div>
         )}
       </CardContent>
+      {display === "three" ? (
+        <CardFooter>
+          <Link
+            href="/dashboard/events/past-events"
+            className={cn("w-full", buttonVariants({ variant: "default" }))}
+          >
+            Voir tous les concours passés
+          </Link>
+        </CardFooter>
+      ) : null}
     </Card>
   );
 };

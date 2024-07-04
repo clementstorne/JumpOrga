@@ -38,7 +38,7 @@ const EventForm = ({ userId, action, event }: EventFormProps) => {
       action === "update" && event
         ? {
             start: event.start,
-            finish: event.finish,
+            end: event.end,
             place: event.place,
             level: event.level.split("-"),
             hasJudge: event.hasJudge ? "true" : "false",
@@ -49,7 +49,7 @@ const EventForm = ({ userId, action, event }: EventFormProps) => {
           }
         : {
             start: "",
-            finish: "",
+            end: "",
             place: "",
             level: [],
             hasJudge: "false",
@@ -119,7 +119,7 @@ const EventForm = ({ userId, action, event }: EventFormProps) => {
 
           <FormField
             control={form.control}
-            name="finish"
+            name="end"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Date de fin du concours</FormLabel>

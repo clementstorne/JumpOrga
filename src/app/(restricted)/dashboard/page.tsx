@@ -12,8 +12,14 @@ const DashboardPage = async () => {
   if (!session) {
     redirect("/login");
   }
+
   const userSession = session.user as Omit<DbUser, "password">;
   const user = await getUserData(userSession.id);
+
+  if (!user) {
+    redirect("/login");
+  }
+
   const userFullName = `${user.firstname} ${user.lastname}`;
 
   return (
@@ -22,7 +28,7 @@ const DashboardPage = async () => {
 
       <div className="grid grid-cols-2 gap-8">
         <FutureEventsSection userId={user.id} />
-        <PastEventsSection userId={user.id} />
+        <PastEventsSection userId={user.id} display="three" />
       </div>
     </div>
   );

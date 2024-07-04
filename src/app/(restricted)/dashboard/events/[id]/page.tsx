@@ -3,7 +3,7 @@ import { getSingleEvent } from "@actions/events/getSigneEvent";
 import { Card, CardContent, CardHeader } from "@ui/card";
 import { redirect } from "next/navigation";
 
-const page = async ({ params }: { params: { id: string } }) => {
+const UpdateEventPage = async ({ params }: { params: { id: string } }) => {
   const event = await getSingleEvent(params.id);
 
   if (!event) {
@@ -22,4 +22,4 @@ const page = async ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default page;
+export default UpdateEventPage;
