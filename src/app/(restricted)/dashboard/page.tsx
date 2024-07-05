@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { DbUser } from "@/types";
 import { getUserData } from "@actions/users/getUserData";
 import FutureEventsSection from "@components/FutureEventsSection";
@@ -23,10 +24,10 @@ const DashboardPage = async () => {
   const userFullName = `${user.firstname} ${user.lastname}`;
 
   return (
-    <div className="space-y-8">
+    <div className={cn("space-y-4", "md:space-y-8")}>
       <h1>Bonjour {userFullName}</h1>
 
-      <div className="grid grid-cols-2 gap-8">
+      <div className={cn("grid grid-cols-1 gap-4", "md:grid-cols-2 md:gap-8")}>
         <FutureEventsSection userId={user.id} />
         <PastEventsSection userId={user.id} display="three" />
       </div>

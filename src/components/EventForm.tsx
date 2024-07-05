@@ -200,7 +200,7 @@ const EventForm = ({ userId, action, event }: EventFormProps) => {
 
         <div
           className={cn(
-            "w-full flex flex-col gap-4",
+            "w-full flex flex-col gap-4 items-stretch",
             "md:grid md:grid-cols-2 md:gap-8"
           )}
         >

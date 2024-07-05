@@ -138,7 +138,7 @@ const Navbar = () => {
       <nav
         data-testid="drawer"
         className={cn(
-          "fixed top-20 left-0 right-0 h-full bg-slate-50 overflow-auto",
+          "fixed top-20 left-0 right-0 h-full bg-slate-50 overflow-auto bg-background",
           "flex flex-col justify-start items-center space-y-8 py-8",
           "transform ease-in-out transition-all duration-300",
           isOpen && "translate-x-0",
