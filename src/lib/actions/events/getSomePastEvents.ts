@@ -3,14 +3,17 @@
 import { dateToStringDate } from "@lib/dateUtils";
 import prisma from "@lib/prisma";
 
-export const getThreePastEvents = async (userId: string) => {
+export const getSomePastEvents = async (
+  organizerId: string,
+  numberOfEvents: number
+) => {
   const todayDate = new Date();
   const today = dateToStringDate(todayDate);
 
   return await prisma.event.findMany({
-    take: 3,
+    take: numberOfEvents,
     where: {
-      ownerId: userId,
+      ownerId: organizerId,
       end: {
         lt: today,
       },

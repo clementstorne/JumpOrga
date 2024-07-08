@@ -8,11 +8,13 @@ import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 
 type FutureEventsSectionProps = {
-  userId: string;
+  organizerId: string;
 };
 
-const FutureEventsSection = async ({ userId }: FutureEventsSectionProps) => {
-  const events = await getAllFutureEvents(userId);
+const FutureEventsSection = async ({
+  organizerId,
+}: FutureEventsSectionProps) => {
+  const events = await getAllFutureEvents(organizerId);
 
   return (
     <Card>

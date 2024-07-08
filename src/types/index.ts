@@ -10,6 +10,12 @@ export interface DbUser {
   firstname: string;
   lastname: string;
   role: "organizer" | "official" | "admin";
+  organizer?: any;
+}
+
+export interface DbOrganizer {
+  id: string;
+  userId: string;
 }
 
 export type SessionUser = Pick<DbUser, "id" | "role">;

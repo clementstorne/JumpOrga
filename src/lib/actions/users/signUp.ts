@@ -20,40 +20,59 @@ export const signUp = async ({
   password: string;
   role: "official" | "organizer";
 }) => {
-  const hash = await bcrypt.hash(password, 10);
+  try {
+    const hash = await bcrypt.hash(password, 10);
 
-  const createdUser = await prisma.user.create({
-    data: {
-      email,
-      password: hash,
-      firstname,
-      lastname,
-      role,
-    },
-  });
+    const createdUser = await prisma.user.create({
+      data: {
+        email,
+        password: hash,
+        firstname,
+        lastname,
+        role,
+      },
+    });
 
-  const emailVerificationToken = crypto.randomBytes(32).toString("base64url");
+    const emailVerificationToken = crypto.randomBytes(32).toString("base64url");
 
-  await prisma.user.update({
-    where: {
-      id: createdUser.id,
-    },
-    data: {
-      emailVerificationToken: emailVerificationToken,
-    },
-  });
+    await prisma.user.update({
+      where: {
+        id: createdUser.id,
+      },
+      data: {
+        emailVerificationToken: emailVerificationToken,
+      },
+    });
 
-  const resend = new Resend(process.env.RESEND_API_KEY);
+    if (role === "organizer") {
+      await prisma.organizer.create({
+        data: {
+          userId: createdUser.id,
+        },
+      });
+    } else if (role === "official") {
+      await prisma.official.create({
+        data: {
+          userId: createdUser.id,
+        },
+      });
+    }
 
-  await resend.emails.send({
-    from: "JumpOrga <contact@clementstorne.dev>",
-    to: [email],
-    subject: "Vérification de l'adresse email",
-    react: VerifyEmailTemplate({
-      email,
-      emailVerificationToken,
-    }) as React.ReactElement,
-  });
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
-  redirect("/login");
+    await resend.emails.send({
+      from: "JumpOrga <contact@clementstorne.dev>",
+      to: [email],
+      subject: "Vérification de l'adresse email",
+      react: VerifyEmailTemplate({
+        email,
+        emailVerificationToken,
+      }) as React.ReactElement,
+    });
+
+    redirect("/login");
+  } catch (error) {
+    console.error("Error during sign up:", error);
+    throw new Error("Sign up failed. Please try again later.");
+  }
 };

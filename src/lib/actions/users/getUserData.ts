@@ -11,6 +11,11 @@ export const getUserData = async (userId: string) => {
       lastname: true,
       email: true,
       role: true,
+      organizer: {
+        select: {
+          id: true,
+        },
+      },
     },
   });
   return user;

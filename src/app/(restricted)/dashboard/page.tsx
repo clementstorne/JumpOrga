@@ -10,7 +10,7 @@ import { redirect } from "next/navigation";
 const DashboardPage = async () => {
   const session = await getServerSession(authOptions);
 
-  if (!session) {
+  if (!session || !session.user) {
     redirect("/login");
   }
 
@@ -28,8 +28,15 @@ const DashboardPage = async () => {
       <h1>Bonjour {userFullName}</h1>
 
       <div className={cn("grid grid-cols-1 gap-4", "md:grid-cols-2 md:gap-8")}>
-        <FutureEventsSection userId={user.id} />
-        <PastEventsSection userId={user.id} display="three" />
+        {user.organizer ? (
+          <>
+            <FutureEventsSection organizerId={user.organizer.id} />
+            <PastEventsSection
+              organizerId={user.organizer.id}
+              display="three"
+            />
+          </>
+        ) : null}
       </div>
     </div>
   );
