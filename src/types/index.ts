@@ -9,20 +9,28 @@ export interface DbUser {
   password: string;
   firstname: string;
   lastname: string;
-  // imageUrl?: string;
   role: "organizer" | "official" | "admin";
+  organizer?: any;
 }
+
+export interface DbOrganizer {
+  id: string;
+  userId: string;
+}
+
+export type SessionUser = Pick<DbUser, "id" | "role">;
 
 export interface DbEvent {
   id: string;
   start: string;
-  finish: string;
+  end: string;
   place: string;
   level: string;
   hasJudge: boolean;
   hasCourseDesigner: boolean;
   hasSteward: boolean;
   hasTimeKeeper: boolean;
+  isVisible: boolean;
 }
 
 export type LevelId =

@@ -8,16 +8,18 @@ datasource db {
 }
 
 model User {
-  id                       String    @id @default(uuid())
-  email                    String    @unique(map: "email")
+  id                       String     @id @default(uuid())
+  email                    String     @unique(map: "email")
   password                 String
   firstname                String
   lastname                 String
   role                     UserRole
-  resetPasswordToken       String?   @unique
+  resetPasswordToken       String?    @unique
   resetPasswordTokenExpiry DateTime?
-  emailVerified            Boolean   @default(false)
-  emailVerificationToken   String?   @unique
+  emailVerified            Boolean    @default(false)
+  emailVerificationToken   String?    @unique
+  organizer                Organizer?
+  official                 Official?
 }
 
 enum UserRole {
@@ -26,14 +28,71 @@ enum UserRole {
   admin
 }
 
+model Organizer {
+  id     String  @id @default(uuid())
+  userId String  @unique
+  user   User    @relation(fields: [userId], references: [id])
+  events Event[]
+}
+
+model Official {
+  id                  String               @id @default(uuid())
+  userId              String               @unique
+  user                User                 @relation(fields: [userId], references: [id])
+  isJudge             Boolean              @default(false)
+  judgeLevel          JudgeLevel?
+  isSteward           Boolean              @default(false)
+  stewardLevel        StewardLevel?
+  isCourseDesigner    Boolean              @default(false)
+  courseDesignerLevel CourseDesignerLevel?
+  isTimeKeeper        Boolean              @default(false)
+}
+
+enum JudgeLevel {
+  club
+  candidatNational
+  national
+  nationalElite
+  internationalLevel1
+  internationalLevel2
+  internationalLevel3
+  internationalLevel4
+}
+
+enum StewardLevel {
+  club
+  candidatNational
+  national
+  nationalElite
+  internationalLevel1
+  internationalLevel2
+  internationalLevel3
+  internationalLevel4
+}
+
+enum CourseDesignerLevel {
+  club
+  candidatNational
+  national
+  candidatNationalElite
+  nationalElite
+  internationalLevel1
+  internationalLevel2
+  internationalLevel3
+  internationalLevel4
+}
+
 model Event {
-  id                String  @id @default(uuid())
-  start             String  @db.VarChar(20)
-  finish            String  @db.VarChar(20)
+  id                String    @id @default(uuid())
+  owner             Organizer @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId           String
+  start             String    @db.VarChar(20)
+  end               String    @db.VarChar(20)
   place             String
   level             String
-  hasJudge          Boolean @default(false)
-  hasSteward        Boolean @default(false)
-  hasCourseDesigner Boolean @default(false)
-  hasTimeKeeper     Boolean @default(false)
+  hasJudge          Boolean   @default(false)
+  hasSteward        Boolean   @default(false)
+  hasCourseDesigner Boolean   @default(false)
+  hasTimeKeeper     Boolean   @default(false)
+  isVisible         Boolean   @default(false)
 }

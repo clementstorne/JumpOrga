@@ -23,7 +23,13 @@ const RootLayout = ({
       <body className={nunito.className}>
         <Providers>
           <Navbar />
-          <main className={cn("p-4 mt-20", "md:p-8", "lg:mt-24")}>
+          <main
+            className={cn(
+              "min-h-lvh p-4 pt-24 bg-casablanca-50",
+              "md:p-8 md:pt-24",
+              "lg:pt-28"
+            )}
+          >
             {children}
           </main>
         </Providers>

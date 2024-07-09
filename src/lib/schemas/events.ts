@@ -13,7 +13,7 @@ const formSchema = z.object({
         ),
       "Mauvais format de date"
     ),
-  finish: z
+  end: z
     .string()
     .min(1, {
       message: "Ce champ est requis",
@@ -35,6 +35,7 @@ const formSchema = z.object({
   hasCourseDesigner: z.enum(["true", "false"]),
   hasSteward: z.enum(["true", "false"]),
   hasTimeKeeper: z.enum(["true", "false"]),
+  isVisible: z.boolean(),
 });
 
 export default formSchema;

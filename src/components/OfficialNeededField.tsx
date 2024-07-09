@@ -1,13 +1,13 @@
+import formSchema from "@lib/schemas/events";
+import { capitalizeFirstLetter, cn } from "@lib/utils";
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@components/ui/form";
-import { RadioGroup, RadioGroupItem } from "@components/ui/radio-group";
-import formSchema from "@lib/schemas/events";
-import { capitalizeFirstLetter, cn } from "@lib/utils";
+} from "@ui/form";
+import { RadioGroup, RadioGroupItem } from "@ui/radio-group";
 import { Control } from "react-hook-form";
 import { z } from "zod";
 

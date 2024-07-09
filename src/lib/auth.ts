@@ -39,6 +39,21 @@ export const authOptions: NextAuthOptions = {
             where: {
               email: email,
             },
+            select: {
+              id: true,
+              password: true,
+              role: true,
+              organizer: {
+                select: {
+                  id: true,
+                },
+              },
+              official: {
+                select: {
+                  id: true,
+                },
+              },
+            },
           });
 
           if (!user) {
@@ -51,14 +66,14 @@ export const authOptions: NextAuthOptions = {
             return null;
           }
 
-          const { id, firstname, lastname, role } = user;
+          const { id, role, organizer, official } = user;
 
           return {
             id,
             email,
-            firstname,
-            lastname,
             role,
+            organizerId: organizer ? organizer.id : null,
+            officialId: official ? official.id : null,
           };
         }
 
@@ -72,8 +87,13 @@ export const authOptions: NextAuthOptions = {
     },
     jwt: async ({ token, user, trigger, session }) => {
       if (user) {
-        const userWithDetails = user as Omit<DbUser, "password">;
+        const userWithDetails = user as Omit<DbUser, "password"> & {
+          organizerId: string | null;
+          officialId: string | null;
+        };
         token.role = userWithDetails.role;
+        token.organizerId = userWithDetails.organizerId;
+        token.officialId = userWithDetails.officialId;
       }
       return token;
     },
@@ -83,6 +103,9 @@ export const authOptions: NextAuthOptions = {
           // @ts-ignore
           id: token.sub,
           role: token.role,
+          organizerId: token.organizerId,
+          officialId: token.officialId,
+          token: token,
         };
       }
       return session;

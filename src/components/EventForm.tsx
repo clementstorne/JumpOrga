@@ -1,8 +1,14 @@
 "use client";
 
+import { DbEvent } from "@/types";
+import { createEvent } from "@actions/events/createEvent";
 import OfficialNeededField from "@components/OfficialNeededField";
-import { Button } from "@components/ui/button";
-import { Checkbox } from "@components/ui/checkbox";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LEVELS } from "@lib/const";
+import formSchema from "@lib/schemas/events";
+import { cn } from "@lib/utils";
+import { Button } from "@ui/button";
+import { Checkbox } from "@ui/checkbox";
 import {
   Form,
   FormControl,
@@ -10,36 +16,51 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@components/ui/form";
-import { Input } from "@components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createEvent } from "@lib/actions/events/createEvent";
-import { LEVELS } from "@lib/const";
-import formSchema from "@lib/schemas/events";
-import { cn } from "@lib/utils";
+} from "@ui/form";
+import { Input } from "@ui/input";
+import { Switch } from "@ui/switch";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const EventForm = () => {
+type EventFormProps = {
+  userId: string;
+  action: "create" | "update";
+  event?: DbEvent;
+};
+
+const EventForm = ({ userId, action, event }: EventFormProps) => {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      start: "",
-      finish: "",
-      place: "",
-      level: [],
-      hasJudge: "false",
-      hasCourseDesigner: "false",
-      hasSteward: "false",
-      hasTimeKeeper: "false",
-    },
+    defaultValues:
+      action === "update" && event
+        ? {
+            start: event.start,
+            end: event.end,
+            place: event.place,
+            level: event.level.split("-"),
+            hasJudge: event.hasJudge ? "true" : "false",
+            hasCourseDesigner: event.hasCourseDesigner ? "true" : "false",
+            hasSteward: event.hasSteward ? "true" : "false",
+            hasTimeKeeper: event.hasTimeKeeper ? "true" : "false",
+            isVisible: event.isVisible,
+          }
+        : {
+            start: "",
+            end: "",
+            place: "",
+            level: [],
+            hasJudge: "false",
+            hasCourseDesigner: "false",
+            hasSteward: "false",
+            hasTimeKeeper: "false",
+            isVisible: false,
+          },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
     const data = {
       ...values,
       level: values.level.join("-"),
@@ -48,7 +69,7 @@ const EventForm = () => {
       hasSteward: values.hasSteward === "true",
       hasTimeKeeper: values.hasTimeKeeper === "true",
     };
-    await createEvent(data);
+    await createEvent(userId, data);
     router.push("/dashboard");
   };
 
@@ -61,6 +82,21 @@ const EventForm = () => {
           "md:space-y-8"
         )}
       >
+        <FormField
+          control={form.control}
+          name="isVisible"
+          render={({ field }) => (
+            <FormItem className="w-full flex items-center space-y-0 space-x-2">
+              <FormLabel>Visible pour les officiels ?</FormLabel>
+              <FormControl>
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
         <div
           className={cn(
             "w-full flex flex-col gap-4",
@@ -83,7 +119,7 @@ const EventForm = () => {
 
           <FormField
             control={form.control}
-            name="finish"
+            name="end"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Date de fin du concours</FormLabel>
@@ -164,7 +200,7 @@ const EventForm = () => {
 
         <div
           className={cn(
-            "w-full flex flex-col gap-4",
+            "w-full flex flex-col gap-4 items-stretch",
             "md:grid md:grid-cols-2 md:gap-8"
           )}
         >
@@ -195,7 +231,9 @@ const EventForm = () => {
 
         <div className={cn("w-full !mt-12 flex flex-col")}>
           <Button size="lg" type="submit" className="font-bold">
-            Créer le concours
+            {action === "create"
+              ? "Créer le concours"
+              : "Mettre à jour le concours"}
           </Button>
         </div>
       </form>
