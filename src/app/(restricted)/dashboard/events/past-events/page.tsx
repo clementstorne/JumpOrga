@@ -1,5 +1,5 @@
 import { authOptions } from "@/lib/auth";
-import { SessionUser } from "@/types";
+import { DbUser } from "@/types";
 import PastEventsSection from "@components/PastEventsSection";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -11,11 +11,11 @@ const PastEventsPage = async () => {
     redirect("/login");
   }
 
-  const user = session.user as SessionUser;
+  const userSession = session.user as Omit<DbUser, "password">;
 
   return (
     <>
-      <PastEventsSection userId={user.id} display="all" />
+      <PastEventsSection organizerId={userSession.id} display="all" />
     </>
   );
 };
