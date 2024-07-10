@@ -1,5 +1,5 @@
 import { authOptions } from "@/lib/auth";
-import { DbUser } from "@/types";
+import { SessionUser } from "@/types";
 import EventForm from "@components/EventForm";
 import { Card, CardContent, CardHeader } from "@ui/card";
 import { Metadata } from "next";
@@ -17,7 +17,7 @@ const NewEventPage = async () => {
   if (!session) {
     redirect("/login");
   }
-  const userSession = session.user as Omit<DbUser, "password">;
+  const userSession = session.user as SessionUser;
   const userId = userSession.id;
 
   return (

@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { DbUser } from "@/types";
+import { SessionUser } from "@/types";
 import { getUserData } from "@actions/users/getUserData";
 import FutureEventsSection from "@components/FutureEventsSection";
 import PastEventsSection from "@components/PastEventsSection";
@@ -14,7 +14,7 @@ const DashboardPage = async () => {
     redirect("/login");
   }
 
-  const userSession = session.user as Omit<DbUser, "password">;
+  const userSession = session.user as SessionUser;
   const user = await getUserData(userSession.id);
 
   if (!user) {
@@ -31,10 +31,7 @@ const DashboardPage = async () => {
         {user.organizer ? (
           <>
             <FutureEventsSection organizerId={user.organizer.id} />
-            <PastEventsSection
-              organizerId={user.organizer.id}
-              display="three"
-            />
+            <PastEventsSection organizerId={user.organizer.id} display={3} />
           </>
         ) : null}
       </div>

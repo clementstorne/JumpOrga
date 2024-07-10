@@ -1,4 +1,4 @@
-export interface Link {
+export interface NavbarLink {
   href: string;
   label: string;
 }
@@ -10,7 +10,8 @@ export interface DbUser {
   firstname: string;
   lastname: string;
   role: "organizer" | "official" | "admin";
-  organizer?: any;
+  organizerId?: string;
+  officialId?: string;
 }
 
 export interface DbOrganizer {
@@ -18,7 +19,10 @@ export interface DbOrganizer {
   userId: string;
 }
 
-export type SessionUser = Pick<DbUser, "id" | "role">;
+export type SessionUser = Pick<
+  DbUser,
+  "id" | "role" | "organizerId" | "officialId"
+>;
 
 export interface DbEvent {
   id: string;

@@ -1,6 +1,6 @@
 "use client";
 
-import { LINKS } from "@lib/const";
+import { NavbarLink, SessionUser } from "@/types";
 import { cn } from "@lib/utils";
 import { Button } from "@ui/button";
 import { Menu, X } from "lucide-react";
@@ -9,6 +9,34 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+
+const VISITOR_LINKS: NavbarLink[] = [
+  {
+    href: "/",
+    label: "Accueil",
+  },
+];
+
+const USER_LINKS: NavbarLink[] = [
+  {
+    href: "/dashboard",
+    label: "Dashboard",
+  },
+];
+
+const ORGANIZER_LINKS: NavbarLink[] = [
+  {
+    href: "/dashboard/events/past-events",
+    label: "Mes concours passés",
+  },
+];
+
+const OFFICIAL_LINKS: NavbarLink[] = [
+  {
+    href: "/dashboard/all-events",
+    label: "Voir les concours",
+  },
+];
 
 type BurgerButtonProps = {
   className?: string;
@@ -57,6 +85,19 @@ const LogoutButton = () => {
 
 const Navbar = () => {
   const currentPath = usePathname();
+  const { data: session } = useSession();
+
+  const user = session?.user as SessionUser;
+
+  const baseLinks = !session && !user ? VISITOR_LINKS : USER_LINKS;
+
+  const additionnalLinks = !user
+    ? []
+    : user.role === "organizer"
+    ? ORGANIZER_LINKS
+    : OFFICIAL_LINKS;
+
+  const allLinks = baseLinks.concat(additionnalLinks);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -123,7 +164,7 @@ const Navbar = () => {
           "max-md:hidden"
         )}
       >
-        {LINKS.map((link, index) => (
+        {allLinks.map((link, index) => (
           <Link
             key={index}
             href={link.href}
@@ -145,7 +186,7 @@ const Navbar = () => {
           !isOpen && "-translate-x-full"
         )}
       >
-        {LINKS.map((link, index) => (
+        {allLinks.map((link, index) => (
           <Link key={index} href={link.href} className="link">
             {link.label}
           </Link>
