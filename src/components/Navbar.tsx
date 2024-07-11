@@ -33,8 +33,8 @@ const ORGANIZER_LINKS: NavbarLink[] = [
 
 const OFFICIAL_LINKS: NavbarLink[] = [
   {
-    href: "/dashboard/all-events",
-    label: "Voir les concours",
+    href: "/dashboard/events/find-events",
+    label: "Trouver des concours",
   },
 ];
 

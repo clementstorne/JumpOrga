@@ -1,7 +1,7 @@
-import { getAllPastEvents } from "@/lib/actions/events/getAllPastEvents";
-import { getSomePastEvents } from "@/lib/actions/events/getSomePastEvents";
-import { cn } from "@/lib/utils";
+import { getAllPastEvents } from "@lib/actions/events/getAllPastEvents";
+import { getSomePastEvents } from "@lib/actions/events/getSomePastEvents";
 import { formatEventDates } from "@lib/dateUtils";
+import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@ui/card";
 import Link from "next/link";
@@ -18,10 +18,6 @@ const PastEventsSection = async ({
   const events = !display
     ? await getAllPastEvents(organizerId)
     : await getSomePastEvents(organizerId, display);
-  // let events = [];
-  // display === "all"
-  //   ? (events = await getAllPastEvents(organizerId))
-  //   : (events = await getSomePastEvents(organizerId, 3));
 
   return (
     <Card>

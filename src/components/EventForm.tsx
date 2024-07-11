@@ -4,6 +4,7 @@ import { DbEvent } from "@/types";
 import { createEvent } from "@actions/events/createEvent";
 import OfficialNeededField from "@components/OfficialNeededField";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { updateEvent } from "@lib/actions/events/updateEvent";
 import { LEVELS } from "@lib/const";
 import formSchema from "@lib/schemas/events";
 import { cn } from "@lib/utils";
@@ -24,12 +25,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 type EventFormProps = {
-  userId: string;
+  organizerId: string;
   action: "create" | "update";
   event?: DbEvent;
 };
 
-const EventForm = ({ userId, action, event }: EventFormProps) => {
+const EventForm = ({ organizerId, action, event }: EventFormProps) => {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -69,7 +70,12 @@ const EventForm = ({ userId, action, event }: EventFormProps) => {
       hasSteward: values.hasSteward === "true",
       hasTimeKeeper: values.hasTimeKeeper === "true",
     };
-    await createEvent(userId, data);
+
+    if (action === "update" && event) {
+      await updateEvent(event.id, data);
+    } else {
+      await createEvent(organizerId, data);
+    }
     router.push("/dashboard");
   };
 
