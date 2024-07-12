@@ -1,6 +1,6 @@
-import { authOptions } from "@/lib/auth";
 import { SessionUser } from "@/types";
 import PastEventsSection from "@components/PastEventsSection";
+import { authOptions } from "@lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 

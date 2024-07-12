@@ -1,9 +1,9 @@
-import { cn } from "@/lib/utils";
 import { SessionUser } from "@/types";
 import { getUserData } from "@actions/users/getUserData";
 import FutureEventsSection from "@components/FutureEventsSection";
 import PastEventsSection from "@components/PastEventsSection";
 import { authOptions } from "@lib/auth";
+import { cn } from "@lib/utils";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 

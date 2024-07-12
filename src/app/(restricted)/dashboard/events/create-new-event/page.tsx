@@ -1,6 +1,6 @@
-import { authOptions } from "@/lib/auth";
 import { SessionUser } from "@/types";
 import EventForm from "@components/EventForm";
+import { authOptions } from "@lib/auth";
 import { Card, CardContent, CardHeader } from "@ui/card";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
@@ -17,8 +17,14 @@ const NewEventPage = async () => {
   if (!session) {
     redirect("/login");
   }
+
   const userSession = session.user as SessionUser;
-  const userId = userSession.id;
+
+  if (!userSession) {
+    redirect("/login");
+  }
+
+  const organizerId = userSession.organizerId as string;
 
   return (
     <Card className="w-full min-h-[calc(100svh-8rem)]">
@@ -26,7 +32,7 @@ const NewEventPage = async () => {
         <h1>Programmer un concours</h1>
       </CardHeader>
       <CardContent>
-        <EventForm action="create" userId={userId} />
+        <EventForm action="create" organizerId={organizerId} />
       </CardContent>
     </Card>
   );
