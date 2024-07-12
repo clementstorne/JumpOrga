@@ -1,34 +1,28 @@
-import { getAllPastEvents } from "@/lib/actions/events/getAllPastEvents";
-import { getSomePastEvents } from "@/lib/actions/events/getSomePastEvents";
-import { cn } from "@/lib/utils";
+import { getAllPastEvents } from "@lib/actions/events/getAllPastEvents";
+import { getSomePastEvents } from "@lib/actions/events/getSomePastEvents";
 import { formatEventDates } from "@lib/dateUtils";
+import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@ui/card";
 import Link from "next/link";
 
 type PastEventsSectionProps = {
   organizerId: string;
-  display: "all" | "three";
+  display?: number;
 };
 
 const PastEventsSection = async ({
   organizerId,
   display,
 }: PastEventsSectionProps) => {
-  let events = [];
-  display === "all"
-    ? (events = await getAllPastEvents(organizerId))
-    : (events = await getSomePastEvents(organizerId, 3));
-  // const events = await getThreePastEvents(userId);
+  const events = !display
+    ? await getAllPastEvents(organizerId)
+    : await getSomePastEvents(organizerId, display);
 
   return (
     <Card>
       <CardHeader>
-        {display === "three" ? (
-          <h2>Mes concours passés</h2>
-        ) : (
-          <h1>Mes concours passés</h1>
-        )}
+        {!display ? <h1>Mes concours passés</h1> : <h2>Mes concours passés</h2>}
       </CardHeader>
       <CardContent>
         {events.length === 0 ? (
@@ -55,7 +49,7 @@ const PastEventsSection = async ({
           </div>
         )}
       </CardContent>
-      {display === "three" ? (
+      {display ? (
         <CardFooter>
           <Link
             href="/dashboard/events/past-events"

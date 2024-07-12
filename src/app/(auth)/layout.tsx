@@ -18,7 +18,7 @@ const layout = ({
       <Card>
         <CardContent
           className={cn(
-            "w-full min-h-[calc(100svh-10rem)] overflow-hidden p-0",
+            "w-full min-h-[calc(100svh-10rem)] overflow-hidden !p-0",
             "md:grid md:grid-cols-2 md:items-center",
             "lg:grid-cols-5"
           )}
