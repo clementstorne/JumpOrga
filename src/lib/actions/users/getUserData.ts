@@ -16,6 +16,11 @@ export const getUserData = async (userId: string) => {
           id: true,
         },
       },
+      official: {
+        select: {
+          id: true,
+        },
+      },
     },
   });
   return user;

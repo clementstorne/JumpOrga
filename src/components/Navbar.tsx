@@ -36,6 +36,10 @@ const OFFICIAL_LINKS: NavbarLink[] = [
     href: "/dashboard/events/find-events",
     label: "Trouver des concours",
   },
+  {
+    href: "/dashboard/profile",
+    label: "Profil",
+  },
 ];
 
 type BurgerButtonProps = {

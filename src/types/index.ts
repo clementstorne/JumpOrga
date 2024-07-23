@@ -19,6 +19,33 @@ export interface DbOrganizer {
   userId: string;
 }
 
+type OfficialLevel =
+  | "club"
+  | "candidatNational"
+  | "national"
+  | "candidatNationalElite"
+  | "nationalElite"
+  | "internationalLevel1"
+  | "internationalLevel2"
+  | "internationalLevel3"
+  | "internationalLevel4";
+
+export type JudgeLevel = Exclude<OfficialLevel, "candidatNationalElite">;
+export type CourseDesignerLevel = OfficialLevel;
+export type StewardLevel = Exclude<OfficialLevel, "candidatNationalElite">;
+
+export interface DbOfficial {
+  id: string;
+  userId: string;
+  isJudge: boolean;
+  judgeLevel: JudgeLevel | "";
+  isCourseDesigner: boolean;
+  courseDesignerLevel: CourseDesignerLevel | "";
+  isSteward: boolean;
+  stewardLevel: StewardLevel | "";
+  isTimeKeeper: boolean;
+}
+
 export type SessionUser = Pick<
   DbUser,
   "id" | "role" | "organizerId" | "officialId"
@@ -37,7 +64,7 @@ export interface DbEvent {
   isVisible: boolean;
 }
 
-export type LevelId =
+export type EventLevelId =
   | "amateur"
   | "pro"
   | "enseignants"
@@ -47,7 +74,7 @@ export type LevelId =
   | "poney"
   | "cyclesClassiquesPoneys";
 
-export type LevelLabel =
+export type EventLevelLabel =
   | "Amateur"
   | "Pro"
   | "Enseignants"
@@ -57,9 +84,9 @@ export type LevelLabel =
   | "Poney"
   | "Cycles Classiques Poneys";
 
-export interface Level {
-  id: LevelId;
-  label: LevelLabel;
+export interface EventLevel {
+  id: EventLevelId;
+  label: EventLevelLabel;
 }
 
 export interface RadioButtonOptions {
