@@ -35,10 +35,6 @@ type ProfileFormProps = {
   official: DbOfficial;
 };
 
-const transformEnumValue = (value: string | undefined | null) => {
-  return value === "" ? null : value;
-};
-
 const ProfileForm = ({ user, official }: ProfileFormProps) => {
   const router = useRouter();
 
@@ -77,8 +73,20 @@ const ProfileForm = ({ user, official }: ProfileFormProps) => {
     const data = {
       ...values,
       isJudge: values.isJudge === "true",
+      judgeLevel:
+        values.isJudge === "true" && values.judgeLevel
+          ? values.judgeLevel
+          : null,
       isCourseDesigner: values.isCourseDesigner === "true",
+      courseDesignerLevel:
+        values.isCourseDesigner && values.courseDesignerLevel
+          ? values.courseDesignerLevel
+          : null,
       isSteward: values.isSteward === "true",
+      stewardLevel:
+        values.isSteward === "true" && values.stewardLevel
+          ? values.stewardLevel
+          : null,
       isTimeKeeper: values.isTimeKeeper === "true",
     };
 

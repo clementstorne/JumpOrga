@@ -30,7 +30,7 @@ const ProfilePage = async () => {
   return (
     <Card className="w-full min-h-[calc(100svh-8rem)]">
       <CardHeader>
-        <h1>Modifier le profil</h1>
+        <h1>Modifier mon profil</h1>
       </CardHeader>
       <CardContent>
         <ProfileForm user={user} official={official} />

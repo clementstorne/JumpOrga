@@ -38,11 +38,11 @@ export interface DbOfficial {
   id: string;
   userId: string;
   isJudge: boolean;
-  judgeLevel: JudgeLevel | "";
+  judgeLevel: JudgeLevel | null;
   isCourseDesigner: boolean;
-  courseDesignerLevel: CourseDesignerLevel | "";
+  courseDesignerLevel: CourseDesignerLevel | null;
   isSteward: boolean;
-  stewardLevel: StewardLevel | "";
+  stewardLevel: StewardLevel | null;
   isTimeKeeper: boolean;
 }
 
