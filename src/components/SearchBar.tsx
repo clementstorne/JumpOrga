@@ -1,9 +1,11 @@
 "use client";
 
-import { searchEvents } from "@/lib/actions/events/searchEvents";
+import { getAllVisibleEvents } from "@/lib/actions/events/getAllVisibleEvents";
+import { searchEvents } from "@actions/events/searchEvents";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EVENT_LEVELS } from "@lib/const";
 import formSchema from "@lib/schemas/searchEvents";
+import useEventStore from "@lib/store/eventStore";
 import { cn } from "@lib/utils";
 import { Button } from "@ui/button";
 import { Checkbox } from "@ui/checkbox";
@@ -20,6 +22,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const SearchBar = () => {
+  const { setEvents } = useEventStore();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,7 +41,13 @@ const SearchBar = () => {
     };
 
     const events = await searchEvents(data);
-    console.log(events);
+    setEvents(events);
+  };
+
+  const resetFilters = async () => {
+    form.reset();
+    const events = await getAllVisibleEvents();
+    setEvents(events);
   };
 
   return (
@@ -155,6 +165,10 @@ const SearchBar = () => {
 
           <Button type="submit" className="w-full font-bold">
             Appliquer les filtres
+          </Button>
+
+          <Button variant={"outline"} onClick={resetFilters} className="w-full">
+            Effacer les filtres
           </Button>
         </div>
       </form>
