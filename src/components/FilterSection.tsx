@@ -14,7 +14,7 @@ const FilterSection = () => {
   return (
     <div className="mb-8">
       <div
-        className="w-full text-primary flex justify-between cursor-pointer"
+        className="w-full text-primary flex items-center space-x-1 cursor-pointer"
         onClick={toggleFilterVisibility}
       >
         <h2>Filtrer les concours</h2>
