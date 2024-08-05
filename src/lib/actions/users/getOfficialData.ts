@@ -1,9 +1,9 @@
 import prisma from "@lib/prisma";
 
-export const getOfficialData = async (officialId: string) => {
+export const getOfficialData = async (userId: string) => {
   const official = await prisma.official.findUnique({
     where: {
-      id: officialId,
+      userId: userId,
     },
   });
   return official;

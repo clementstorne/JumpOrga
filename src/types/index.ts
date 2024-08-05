@@ -93,3 +93,14 @@ export interface RadioButtonOptions {
   value: "true" | "false";
   label: string;
 }
+
+export interface DbEventApplication {
+  id: string;
+  eventId: string;
+  officialId: string;
+  appliedRole: "judge" | "courseDesigner" | "steward" | "timeKeeper";
+  status: "pending" | "accepted" | "rejected";
+  createdAt: Date;
+  updatedAt: Date;
+  event: DbEvent;
+}

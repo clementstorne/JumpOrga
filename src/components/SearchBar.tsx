@@ -1,6 +1,6 @@
 "use client";
 
-import { getAllVisibleEvents } from "@/lib/actions/events/getAllVisibleEvents";
+import { getAllVisibleEvents } from "@actions/events/getAllVisibleEvents";
 import { searchEvents } from "@actions/events/searchEvents";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EVENT_LEVELS } from "@lib/const";
