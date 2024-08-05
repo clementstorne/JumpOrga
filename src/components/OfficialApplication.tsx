@@ -1,6 +1,6 @@
 "use client";
 
-import { applyForEvent } from "@actions/events/applyForEvent";
+import { applyForEvent } from "@/lib/actions/applications/applyForEvent";
 import { roleTranslations } from "@lib/translations";
 import { OfficialRole } from "@prisma/client";
 import { Button } from "@ui/button";
@@ -8,6 +8,7 @@ import { useToast } from "@ui/use-toast";
 
 type OfficialApplicationProps = {
   eventId: string;
+  officialId: string;
   hasJudge: boolean;
   hasCourseDesigner: boolean;
   hasSteward: boolean;
@@ -16,6 +17,7 @@ type OfficialApplicationProps = {
 
 const OfficialApplication = ({
   eventId,
+  officialId,
   hasJudge,
   hasCourseDesigner,
   hasSteward,

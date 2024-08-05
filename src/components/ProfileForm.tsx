@@ -36,6 +36,7 @@ type ProfileFormProps = {
 };
 
 const ProfileForm = ({ user, official }: ProfileFormProps) => {
+  console.log(official);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -45,8 +46,13 @@ const ProfileForm = ({ user, official }: ProfileFormProps) => {
       lastname: user.lastname,
       email: user.email,
       isJudge: official.isJudge ? "true" : "false",
+      judgeLevel: official.judgeLevel ? official.judgeLevel : undefined,
       isCourseDesigner: official.isCourseDesigner ? "true" : "false",
+      courseDesignerLevel: official.courseDesignerLevel
+        ? official.courseDesignerLevel
+        : undefined,
       isSteward: official.isSteward ? "true" : "false",
+      stewardLevel: official.stewardLevel ? official.stewardLevel : undefined,
       isTimeKeeper: official.isTimeKeeper ? "true" : "false",
     },
   });

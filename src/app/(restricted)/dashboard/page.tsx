@@ -1,3 +1,4 @@
+import ApplicationsSection from "@/components/ApplicationsSection";
 import { SessionUser } from "@/types";
 import { getUserData } from "@actions/users/getUserData";
 import FutureEventsSection from "@components/FutureEventsSection";
@@ -33,6 +34,10 @@ const DashboardPage = async () => {
             <FutureEventsSection organizerId={user.organizer.id} />
             <PastEventsSection organizerId={user.organizer.id} display={3} />
           </>
+        ) : null}
+
+        {user.official ? (
+          <ApplicationsSection officialId={user.official.id} />
         ) : null}
       </div>
     </div>

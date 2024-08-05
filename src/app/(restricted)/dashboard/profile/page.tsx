@@ -17,11 +17,11 @@ const ProfilePage = async () => {
   const userSession = session.user as SessionUser;
   const user = await getUserData(userSession.id);
 
-  if (!user || !userSession.officialId) {
+  if (!user) {
     redirect("/login");
   }
 
-  const official = await getOfficialData(userSession.officialId);
+  const official = await getOfficialData(user.id);
 
   if (!official) {
     redirect("/login");

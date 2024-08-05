@@ -1,24 +1,31 @@
-"use client";
-
-import EventCard from "@/components/EventCard";
-import FilterSection from "@/components/FilterSection";
-import { cn } from "@/lib/utils";
-import { getAllVisibleEvents } from "@actions/events/getAllVisibleEvents";
-import useEventStore from "@store/eventStore";
+import { SessionUser } from "@/types";
+import { getOfficialData } from "@actions/users/getOfficialData";
+import { getUserData } from "@actions/users/getUserData";
+import EventsList from "@components/EventsList";
+import { authOptions } from "@lib/auth";
 import { Card, CardContent, CardHeader } from "@ui/card";
-import { useEffect } from "react";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
-const PastEventsPage = () => {
-  const { events, setEvents } = useEventStore();
+const PastEventsPage = async () => {
+  const session = await getServerSession(authOptions);
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      const data = await getAllVisibleEvents();
-      setEvents(data);
-    };
+  if (!session || !session.user) {
+    redirect("/login");
+  }
 
-    fetchEvents();
-  }, [setEvents]);
+  const userSession = session.user as SessionUser;
+  const user = await getUserData(userSession.id);
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  const official = await getOfficialData(user.id);
+
+  if (!official) {
+    redirect("/login");
+  }
 
   return (
     <Card>
@@ -26,24 +33,7 @@ const PastEventsPage = () => {
         <h1>Trouver des concours</h1>
       </CardHeader>
       <CardContent>
-        {events.length === 0 ? (
-          <p>Il n&apos;y a pas encore de concours programmés</p>
-        ) : (
-          <>
-            <FilterSection />
-            <div
-              className={cn(
-                "flex flex-col space-y-4",
-                "md:grid md:grid-cols-2 md:space-y-0 md:gap-4",
-                "lg:grid-cols-3"
-              )}
-            >
-              {events.map((event) => (
-                <EventCard key={event.id} {...event} type={"official"} />
-              ))}
-            </div>
-          </>
-        )}
+        <EventsList officialId={official.id} />
       </CardContent>
     </Card>
   );

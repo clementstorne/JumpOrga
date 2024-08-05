@@ -20,7 +20,7 @@ const VISITOR_LINKS: NavbarLink[] = [
 const USER_LINKS: NavbarLink[] = [
   {
     href: "/dashboard",
-    label: "Dashboard",
+    label: "Accueil",
   },
 ];
 
@@ -35,6 +35,10 @@ const OFFICIAL_LINKS: NavbarLink[] = [
   {
     href: "/dashboard/events/find-events",
     label: "Trouver des concours",
+  },
+  {
+    href: "/dashboard/applications/my-applications",
+    label: "Mes candidatures",
   },
   {
     href: "/dashboard/profile",

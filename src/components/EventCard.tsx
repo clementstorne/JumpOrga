@@ -20,6 +20,7 @@ type EventCardProps = {
   hasSteward: boolean;
   hasTimeKeeper: boolean;
   type?: "organizer" | "official";
+  officialId?: string;
 };
 
 const EventCard = ({
@@ -34,6 +35,7 @@ const EventCard = ({
   hasSteward,
   hasTimeKeeper,
   type = "organizer",
+  officialId,
 }: EventCardProps) => {
   if (type === "organizer") {
     return (
@@ -81,6 +83,7 @@ const EventCard = ({
 
         <OfficialApplication
           eventId={id}
+          officialId={officialId}
           hasJudge={hasJudge}
           hasCourseDesigner={hasCourseDesigner}
           hasSteward={hasSteward}
