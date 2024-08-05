@@ -87,13 +87,8 @@ export const authOptions: NextAuthOptions = {
     },
     jwt: async ({ token, user, trigger, session }) => {
       if (user) {
-        const userWithDetails = user as Omit<DbUser, "password"> & {
-          organizerId: string | null;
-          officialId: string | null;
-        };
+        const userWithDetails = user as Omit<DbUser, "password">;
         token.role = userWithDetails.role;
-        token.organizerId = userWithDetails.organizerId;
-        token.officialId = userWithDetails.officialId;
       }
       return token;
     },

@@ -1,9 +1,9 @@
 "use client";
 
-import EventCard from "@/components/EventCard";
-import FilterSection from "@/components/FilterSection";
-import { cn } from "@/lib/utils";
 import { getAllVisibleEvents } from "@actions/events/getAllVisibleEvents";
+import EventCard from "@components/EventCard";
+import FilterSection from "@components/FilterSection";
+import { cn } from "@lib/utils";
 import useEventStore from "@store/eventStore";
 import { Card, CardContent, CardHeader } from "@ui/card";
 import { useEffect } from "react";
