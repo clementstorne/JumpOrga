@@ -18,7 +18,7 @@ const ApplicationsSection = async ({
       </CardHeader>
       <CardContent>
         {applications.length === 0 ? (
-          <p>Vous n&apos;avez encore candidaté pour aucun concours</p>
+          <p>Vous n&apos;avez candidaté pour aucun concours</p>
         ) : (
           <div className="space-y-4">
             {applications.map((application) => (
