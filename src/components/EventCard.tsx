@@ -1,8 +1,11 @@
-import { Button, buttonVariants } from "@components/ui/button";
+"use client";
+
+import { buttonVariants } from "@components/ui/button";
 import { formatEventDates } from "@lib/dateUtils";
 import { cn } from "@lib/utils";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
+import OfficialApplication from "./OfficialApplication";
 import OfficialsStatus from "./OfficialsStatus";
 
 type EventCardProps = {
@@ -76,13 +79,13 @@ const EventCard = ({
           <p className="text-sm font-normal">{level}</p>
         </div>
 
-        <div className="w-full flex flex-col space-y-2 my-4">
-          <h2>Postuler</h2>
-          {!hasJudge ? <Button>Juge</Button> : null}
-          {!hasCourseDesigner ? <Button>Chef de piste</Button> : null}
-          {!hasSteward ? <Button>Commissaire au paddock</Button> : null}
-          {!hasTimeKeeper ? <Button>Chronométreur</Button> : null}
-        </div>
+        <OfficialApplication
+          eventId={id}
+          hasJudge={hasJudge}
+          hasCourseDesigner={hasCourseDesigner}
+          hasSteward={hasSteward}
+          hasTimeKeeper={hasTimeKeeper}
+        />
       </div>
     );
   }
