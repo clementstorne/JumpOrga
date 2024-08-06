@@ -38,7 +38,7 @@ const ApplicationPage = async () => {
       </CardHeader>
       <CardContent>
         {applications.length === 0 ? (
-          <p>Vous n&apos;avez encore pas candidaté</p>
+          <p>Vous n&apos;avez encore candidaté pour aucun concours</p>
         ) : (
           <>
             <div

@@ -12,6 +12,7 @@ import { redirect } from "next/navigation";
 
 type OfficialApplicationProps = {
   eventId: string;
+  officialId: string;
   hasJudge: boolean;
   hasCourseDesigner: boolean;
   hasSteward: boolean;
@@ -20,6 +21,7 @@ type OfficialApplicationProps = {
 
 const OfficialApplication = async ({
   eventId,
+  officialId,
   hasJudge,
   hasCourseDesigner,
   hasSteward,
