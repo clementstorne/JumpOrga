@@ -1,6 +1,11 @@
-import { Level, RadioButtonOptions } from "@/types";
+import {
+  CourseDesignerLevel,
+  EventLevel,
+  JudgeLevel,
+  StewardLevel,
+} from "@/types";
 
-export const LEVELS: Level[] = [
+export const EVENT_LEVELS: EventLevel[] = [
   {
     id: "amateur",
     label: "Amateur",
@@ -35,7 +40,39 @@ export const LEVELS: Level[] = [
   },
 ];
 
-export const HAS_JUDGE: RadioButtonOptions[] = [
-  { value: "false", label: "J'ai besoin d'un juge" },
-  { value: "true", label: "J'ai déjà un juge" },
+export const JUDGE_LEVELS: { id: JudgeLevel; label: string }[] = [
+  { id: "club", label: "Club" },
+  { id: "candidatNational", label: "Candidat National" },
+  { id: "national", label: "National" },
+  { id: "nationalElite", label: "National Élite" },
+  { id: "internationalLevel1", label: "International Level 1" },
+  { id: "internationalLevel2", label: "International Level 2" },
+  { id: "internationalLevel3", label: "International Level 3" },
+  { id: "internationalLevel4", label: "International Level 4" },
+];
+
+export const COURSE_DESIGNER_LEVELS: {
+  id: CourseDesignerLevel;
+  label: string;
+}[] = [
+  { id: "club", label: "Club" },
+  { id: "candidatNational", label: "Candidat National" },
+  { id: "national", label: "National" },
+  { id: "candidatNationalElite", label: "Candidat National Élite" },
+  { id: "nationalElite", label: "National Élite" },
+  { id: "internationalLevel1", label: "International Level 1" },
+  { id: "internationalLevel2", label: "International Level 2" },
+  { id: "internationalLevel3", label: "International Level 3" },
+  { id: "internationalLevel4", label: "International Level 4" },
+];
+
+export const STEWARD_LEVELS: { id: StewardLevel; label: string }[] = [
+  { id: "club", label: "Club" },
+  { id: "candidatNational", label: "Candidat National" },
+  { id: "national", label: "National" },
+  { id: "nationalElite", label: "National Élite" },
+  { id: "internationalLevel1", label: "International Level 1" },
+  { id: "internationalLevel2", label: "International Level 2" },
+  { id: "internationalLevel3", label: "International Level 3" },
+  { id: "internationalLevel4", label: "International Level 4" },
 ];

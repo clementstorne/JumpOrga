@@ -24,6 +24,7 @@
       "@ui/*": ["./src/components/ui/*"],
       "@lib/*": ["./src/lib/*"],
       "@actions/*": ["./src/lib/actions/*"],
+      "@store/*": ["./src/lib/store/*"],
       "@public/*": ["./public/*"]
     }
   },

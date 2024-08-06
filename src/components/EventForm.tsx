@@ -5,7 +5,7 @@ import { createEvent } from "@actions/events/createEvent";
 import OfficialNeededField from "@components/OfficialNeededField";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateEvent } from "@lib/actions/events/updateEvent";
-import { LEVELS } from "@lib/const";
+import { EVENT_LEVELS } from "@lib/const";
 import formSchema from "@lib/schemas/events";
 import { cn } from "@lib/utils";
 import { Button } from "@ui/button";
@@ -166,7 +166,7 @@ const EventForm = ({ organizerId, action, event }: EventFormProps) => {
                   "lg:grid-cols-4"
                 )}
               >
-                {LEVELS.map((item) => (
+                {EVENT_LEVELS.map((item) => (
                   <FormField
                     key={item.id}
                     control={form.control}

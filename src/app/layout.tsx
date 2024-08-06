@@ -1,6 +1,7 @@
 import Providers from "@/app/provider";
 import Navbar from "@components/Navbar";
 import { cn } from "@lib/utils";
+import { Toaster } from "@ui/toaster";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
@@ -33,6 +34,7 @@ const RootLayout = ({
             {children}
           </main>
         </Providers>
+        <Toaster />
       </body>
     </html>
   );

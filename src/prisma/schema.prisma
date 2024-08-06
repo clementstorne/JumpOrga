@@ -46,6 +46,7 @@ model Official {
   isCourseDesigner    Boolean              @default(false)
   courseDesignerLevel CourseDesignerLevel?
   isTimeKeeper        Boolean              @default(false)
+  applications        EventApplication[]
 }
 
 enum JudgeLevel {
@@ -83,16 +84,42 @@ enum CourseDesignerLevel {
 }
 
 model Event {
-  id                String    @id @default(uuid())
-  owner             Organizer @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  id                String             @id @default(uuid())
+  owner             Organizer          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId           String
-  start             String    @db.VarChar(20)
-  end               String    @db.VarChar(20)
+  start             String             @db.VarChar(20)
+  end               String             @db.VarChar(20)
   place             String
   level             String
-  hasJudge          Boolean   @default(false)
-  hasSteward        Boolean   @default(false)
-  hasCourseDesigner Boolean   @default(false)
-  hasTimeKeeper     Boolean   @default(false)
-  isVisible         Boolean   @default(false)
+  hasJudge          Boolean            @default(false)
+  hasSteward        Boolean            @default(false)
+  hasCourseDesigner Boolean            @default(false)
+  hasTimeKeeper     Boolean            @default(false)
+  isVisible         Boolean            @default(false)
+  applications      EventApplication[]
+}
+
+model EventApplication {
+  id          String            @id @default(uuid())
+  official    Official          @relation(fields: [officialId], references: [id])
+  officialId  String
+  event       Event             @relation(fields: [eventId], references: [id])
+  eventId     String
+  appliedRole OfficialRole
+  status      ApplicationStatus @default(pending)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+}
+
+enum ApplicationStatus {
+  pending
+  accepted
+  rejected
+}
+
+enum OfficialRole {
+  judge
+  steward
+  courseDesigner
+  timeKeeper
 }
