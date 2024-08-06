@@ -1,6 +1,6 @@
-import { getAllApplications } from "@/lib/actions/applications/getAllApplications";
+import { getAllApplications } from "@actions/applications/getAllApplications";
+import ApplicationCard from "@components/ApplicationCard";
 import { Card, CardContent, CardHeader } from "@ui/card";
-import ApplicationCard from "./ApplicationCard";
 
 type ApplicationsSectionProps = {
   officialId: string;
