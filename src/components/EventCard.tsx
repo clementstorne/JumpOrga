@@ -1,12 +1,12 @@
 "use client";
 
+import OfficialApplication from "@components/OfficialApplication";
+import OfficialsStatus from "@components/OfficialsStatus";
 import { buttonVariants } from "@components/ui/button";
 import { formatEventDates } from "@lib/dateUtils";
 import { cn } from "@lib/utils";
 import { Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
-import OfficialApplication from "./OfficialApplication";
-import OfficialsStatus from "./OfficialsStatus";
 
 type EventCardProps = {
   id: string;
@@ -65,7 +65,7 @@ const EventCard = ({
         />
       </Link>
     );
-  } else {
+  } else if (type === "official" && officialId) {
     return (
       <div
         className={cn(

@@ -2,7 +2,7 @@
 
 import VerifyEmailTemplate from "@components/email-templates/VerifyEmailTemplate";
 import prisma from "@lib/prisma";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import { redirect } from "next/navigation";
 import { Resend } from "resend";

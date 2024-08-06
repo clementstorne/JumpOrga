@@ -1,14 +1,10 @@
-import { SessionUser } from "@/types";
+"use client";
+
 import { applyForEvent } from "@actions/applications/applyForEvent";
-import { getOfficialData } from "@actions/users/getOfficialData";
-import { getUserData } from "@actions/users/getUserData";
-import { authOptions } from "@lib/auth";
 import { roleTranslations } from "@lib/translations";
 import { OfficialRole } from "@prisma/client";
 import { Button } from "@ui/button";
 import { useToast } from "@ui/use-toast";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 
 type OfficialApplicationProps = {
   eventId: string;
@@ -19,7 +15,7 @@ type OfficialApplicationProps = {
   hasTimeKeeper: boolean;
 };
 
-const OfficialApplication = async ({
+const OfficialApplication = ({
   eventId,
   officialId,
   hasJudge,
@@ -27,30 +23,11 @@ const OfficialApplication = async ({
   hasSteward,
   hasTimeKeeper,
 }: OfficialApplicationProps) => {
-  const session = await getServerSession(authOptions);
-
-  if (!session || !session.user) {
-    redirect("/login");
-  }
-
-  const userSession = session.user as SessionUser;
-  const user = await getUserData(userSession.id);
-
-  if (!user) {
-    redirect("/login");
-  }
-
-  const official = await getOfficialData(user.id);
-
-  if (!official) {
-    redirect("/login");
-  }
-
   const { toast } = useToast();
 
   const handleApply = async (role: OfficialRole) => {
     try {
-      await applyForEvent(eventId, official.id, role);
+      await applyForEvent(eventId, officialId, role);
       toast({
         description: `Votre candidature en tant que ${roleTranslations[role]} a été soumise avec succès !`,
       });

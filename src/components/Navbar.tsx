@@ -153,7 +153,10 @@ const Navbar = () => {
         onClick={handleDrawer}
       />
 
-      <Link href="/" className="h-full flex items-center space-x-2">
+      <Link
+        href={!session ? "/" : "/dashboard"}
+        className="h-full flex items-center space-x-2"
+      >
         <Image
           className="h-full w-auto"
           src="/JumpOrga.svg"

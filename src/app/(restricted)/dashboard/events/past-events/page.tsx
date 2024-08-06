@@ -1,4 +1,6 @@
 import { SessionUser } from "@/types";
+import { getOrganizerData } from "@actions/users/getOrganizerData";
+import { getUserData } from "@actions/users/getUserData";
 import PastEventsSection from "@components/PastEventsSection";
 import { authOptions } from "@lib/auth";
 import { getServerSession } from "next-auth";
@@ -12,14 +14,21 @@ const PastEventsPage = async () => {
   }
 
   const userSession = session.user as SessionUser;
+  const user = await getUserData(userSession.id);
 
-  if (!userSession.organizerId) {
+  if (!user) {
+    redirect("/login");
+  }
+
+  const organizer = await getOrganizerData(user.id);
+
+  if (!organizer) {
     redirect("/login");
   }
 
   return (
     <>
-      <PastEventsSection organizerId={userSession.organizerId} />
+      <PastEventsSection organizerId={organizer.id} />
     </>
   );
 };

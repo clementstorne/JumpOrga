@@ -1,5 +1,5 @@
-import { getAllPastEvents } from "@lib/actions/events/getAllPastEvents";
-import { getSomePastEvents } from "@lib/actions/events/getSomePastEvents";
+import { getAllPastEvents } from "@actions/events/getAllPastEvents";
+import { getSomePastEvents } from "@actions/events/getSomePastEvents";
 import { formatEventDates } from "@lib/dateUtils";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";

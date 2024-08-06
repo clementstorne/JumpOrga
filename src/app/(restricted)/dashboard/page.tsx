@@ -41,9 +41,7 @@ const DashboardPage = async () => {
           </>
         ) : null}
 
-        {user.official ? (
-          <ApplicationsSection officialId={user.official.id} />
-        ) : null}
+        {official ? <ApplicationsSection officialId={official.id} /> : null}
       </div>
     </div>
   );

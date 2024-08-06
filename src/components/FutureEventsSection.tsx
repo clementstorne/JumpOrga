@@ -1,9 +1,9 @@
-import { getAllFutureEvents } from "@lib/actions/events/getAllFutureEvents";
+import { getAllFutureEvents } from "@actions/events/getAllFutureEvents";
+import EventCard from "@components/EventCard";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@ui/card";
 import Link from "next/link";
-import EventCard from "./EventCard";
 
 type FutureEventsSectionProps = {
   organizerId: string;
