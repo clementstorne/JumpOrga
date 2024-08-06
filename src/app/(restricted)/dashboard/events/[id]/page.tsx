@@ -1,5 +1,5 @@
 import { SessionUser } from "@/types";
-import { getSingleEvent } from "@actions/events/getSigneEvent";
+import { getSingleEvent } from "@actions/events/getSingleEvent";
 import EventForm from "@components/EventForm";
 import { authOptions } from "@lib/auth";
 import { Card, CardContent, CardHeader } from "@ui/card";

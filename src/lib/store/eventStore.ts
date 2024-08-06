@@ -14,7 +14,7 @@ const useEventStore = create<EventState>()(
       setEvents: (events) => set({ events }),
     }),
     {
-      name: "jump-orage-event-storage",
+      name: "jump-orga-event-storage",
     }
   )
 );
