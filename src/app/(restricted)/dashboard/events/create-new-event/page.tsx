@@ -1,4 +1,6 @@
 import { SessionUser } from "@/types";
+import { getOrganizerData } from "@actions/users/getOrganizerData";
+import { getUserData } from "@actions/users/getUserData";
 import EventForm from "@components/EventForm";
 import { authOptions } from "@lib/auth";
 import { Card, CardContent, CardHeader } from "@ui/card";
@@ -14,17 +16,22 @@ export const metadata: Metadata = {
 const NewEventPage = async () => {
   const session = await getServerSession(authOptions);
 
-  if (!session) {
+  if (!session || !session.user) {
     redirect("/login");
   }
 
   const userSession = session.user as SessionUser;
+  const user = await getUserData(userSession.id);
 
-  if (!userSession) {
+  if (!user) {
     redirect("/login");
   }
 
-  const organizerId = userSession.organizerId as string;
+  const organizer = await getOrganizerData(user.id);
+
+  if (!organizer) {
+    redirect("/login");
+  }
 
   return (
     <Card className="w-full min-h-[calc(100svh-8rem)]">
@@ -32,7 +39,7 @@ const NewEventPage = async () => {
         <h1>Programmer un concours</h1>
       </CardHeader>
       <CardContent>
-        <EventForm action="create" organizerId={organizerId} />
+        <EventForm action="create" organizerId={organizer.id} />
       </CardContent>
     </Card>
   );

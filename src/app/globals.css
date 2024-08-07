@@ -70,6 +70,13 @@
   }
 
   h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-black;
+  }
+
+  h1,
   h2 {
     @apply font-black text-primary;
   }
@@ -79,7 +86,15 @@
   }
 
   h2 {
+    @apply text-2xl;
+  }
+
+  h3 {
     @apply text-xl;
+  }
+
+  h4 {
+    @apply text-lg;
   }
 }
 

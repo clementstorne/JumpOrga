@@ -19,18 +19,17 @@ const ApplicationCard = ({
   return (
     <div
       className={cn(
-        buttonVariants({ variant: "outline" }),
-        "h-full relative flex flex-col items-center justify-start",
+        "p-4 flex items-center justify-center rounded-md border-2 border-input bg-background",
+        "h-fill flex flex-col items-start justify-between gap-4",
         "hover:bg-background"
       )}
     >
-      <p className="text-lg">
-        {event.place} •{" "}
-        <span className="font-normal">
-          {formatEventDates(event.start, event.end)}
-        </span>
-      </p>
-      <p>{roleTranslations[appliedRole]}</p>
+      <div className="w-full flex flex-col items-center">
+        <h3>{event.place}</h3>
+        <p className="font-bold">{formatEventDates(event.start, event.end)}</p>
+        <p>{roleTranslations[appliedRole]}</p>
+      </div>
+
       <p
         className={cn(
           status === "rejected" && buttonVariants({ variant: "destructive" }),

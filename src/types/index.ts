@@ -94,11 +94,13 @@ export interface RadioButtonOptions {
   label: string;
 }
 
+export type AppliedRole = "judge" | "courseDesigner" | "steward" | "timeKeeper";
+
 export interface DbEventApplication {
   id: string;
   eventId: string;
   officialId: string;
-  appliedRole: "judge" | "courseDesigner" | "steward" | "timeKeeper";
+  appliedRole: AppliedRole;
   status: "pending" | "accepted" | "rejected";
   createdAt: Date;
   updatedAt: Date;

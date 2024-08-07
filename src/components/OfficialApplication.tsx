@@ -40,8 +40,8 @@ const OfficialApplication = ({
   };
 
   return (
-    <div className="w-full flex flex-col space-y-2 my-4">
-      <h2>Postuler</h2>
+    <div className="w-full flex flex-col gap-2">
+      <h4>Postuler</h4>
       {!hasJudge ? (
         <Button onClick={() => handleApply(OfficialRole.judge)}>Juge</Button>
       ) : null}

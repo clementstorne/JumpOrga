@@ -167,7 +167,11 @@ const SearchBar = () => {
             Appliquer les filtres
           </Button>
 
-          <Button variant={"outline"} onClick={resetFilters} className="w-full">
+          <Button
+            variant={"secondary"}
+            onClick={resetFilters}
+            className="w-full"
+          >
             Effacer les filtres
           </Button>
         </div>

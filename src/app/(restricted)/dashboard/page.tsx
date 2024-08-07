@@ -4,7 +4,6 @@ import { getOfficialData } from "@actions/users/getOfficialData";
 import { getOrganizerData } from "@actions/users/getOrganizerData";
 import { getUserData } from "@actions/users/getUserData";
 import FutureEventsSection from "@components/FutureEventsSection";
-import PastEventsSection from "@components/PastEventsSection";
 import { authOptions } from "@lib/auth";
 import { cn } from "@lib/utils";
 import { getServerSession } from "next-auth";
@@ -33,11 +32,10 @@ const DashboardPage = async () => {
     <div className={cn("space-y-4", "md:space-y-8")}>
       <h1>Bonjour {userFullName}</h1>
 
-      <div className={cn("grid grid-cols-1 gap-4", "md:grid-cols-2 md:gap-8")}>
+      <div className={cn("grid grid-cols-1 gap-4", "md:gap-8")}>
         {organizer && organizer.id ? (
           <>
             <FutureEventsSection organizerId={organizer.id} />
-            <PastEventsSection organizerId={organizer.id} display={3} />
           </>
         ) : null}
 
