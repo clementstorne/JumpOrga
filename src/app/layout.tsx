@@ -27,8 +27,8 @@ const RootLayout = ({
           <main
             className={cn(
               "min-h-lvh p-4 pt-24 bg-casablanca-50",
-              "md:p-8 md:pt-24",
-              "lg:pt-28"
+              "md:p-8 md:pt-28",
+              "lg:pt-32"
             )}
           >
             {children}

@@ -1,12 +1,11 @@
 "use client";
 
 import { DbEventApplication } from "@/types";
-import { changeVisibility } from "@actions/events/changeVisibility";
 import { deleteEvent } from "@actions/events/deleteEvent";
 import OfficialApplication from "@components/OfficialApplication";
 import OfficialsStatus from "@components/OfficialsStatus";
 import { Button, buttonVariants } from "@components/ui/button";
-import { formatEventDates } from "@lib/dateUtils";
+import { formatEventDates, isInFuture } from "@lib/dateUtils";
 import { cn } from "@lib/utils";
 import { useToast } from "@ui/use-toast";
 import { Eye, EyeOff, Pencil, Trash2 } from "lucide-react";
@@ -59,29 +58,6 @@ const EventCard = ({
     }
   };
 
-  const handleClickOnChangeVisibilityButton = async (
-    eventId: string,
-    isVisible: boolean
-  ) => {
-    try {
-      await changeVisibility(eventId, isVisible);
-      if (isVisible) {
-        toast({
-          description: `Tous les officiels peuvent voir votre concours`,
-        });
-      } else {
-        toast({
-          description: `Vous êtes désormais le seul à pouvoir voir votre concours`,
-        });
-      }
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        description: `${error}`,
-      });
-    }
-  };
-
   if (type === "organizer") {
     return (
       <div
@@ -95,38 +71,44 @@ const EventCard = ({
           <h3>{place}</h3>
           <p className="font-bold">{formatEventDates(start, end)}</p>
           <p>{level}</p>
-          {isVisible ? (
-            <>
-              <Eye />
-              <span className="sr-only">Visible pour les officiels</span>
-            </>
-          ) : (
-            <>
-              <EyeOff />
-              <span className="sr-only">Invisible pour les officiels</span>
-            </>
-          )}
+          {isInFuture(start) ? (
+            isVisible ? (
+              <>
+                <Eye />
+                <span className="sr-only">Visible pour les officiels</span>
+              </>
+            ) : (
+              <>
+                <EyeOff />
+                <span className="sr-only">Invisible pour les officiels</span>
+              </>
+            )
+          ) : null}
         </div>
 
-        <OfficialsStatus
-          hasJudge={hasJudge}
-          hasCourseDesigner={hasCourseDesigner}
-          hasSteward={hasSteward}
-          hasTimeKeeper={hasTimeKeeper}
-          applications={applications}
-        />
+        {isInFuture(start) ? (
+          <OfficialsStatus
+            hasJudge={hasJudge}
+            hasCourseDesigner={hasCourseDesigner}
+            hasSteward={hasSteward}
+            hasTimeKeeper={hasTimeKeeper}
+            applications={applications}
+          />
+        ) : null}
 
         <div className={cn("w-full flex flex-col gap-2")}>
-          <Link
-            className={cn(
-              buttonVariants({ variant: "default" }),
-              "w-full flex items-center justify-center gap-2"
-            )}
-            href={`/dashboard/events/${id}`}
-          >
-            <Pencil />
-            <span>Modifier le concours</span>
-          </Link>
+          {isInFuture(start) ? (
+            <Link
+              className={cn(
+                buttonVariants({ variant: "default" }),
+                "w-full flex items-center justify-center gap-2"
+              )}
+              href={`/dashboard/events/${id}`}
+            >
+              <Pencil />
+              <span>Modifier le concours</span>
+            </Link>
+          ) : null}
 
           <Button
             variant="destructive"
