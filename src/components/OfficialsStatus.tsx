@@ -1,7 +1,12 @@
-import { AppliedRole, DbEventApplication } from "@/types";
+import { DbEventApplication } from "@/types";
 import StatusIcon from "@components/StatusIcon";
+import { getApplicationsList } from "@lib/applicationsUtils";
+import { cn } from "@lib/utils";
+import { Button, buttonVariants } from "@ui/button";
+import Link from "next/link";
 
 type OfficialsStatusProps = {
+  eventId: string;
   hasJudge: boolean;
   hasCourseDesigner: boolean;
   hasSteward: boolean;
@@ -10,24 +15,13 @@ type OfficialsStatusProps = {
 };
 
 const OfficialsStatus = ({
+  eventId,
   hasJudge,
   hasCourseDesigner,
   hasSteward,
   hasTimeKeeper,
   applications,
 }: OfficialsStatusProps) => {
-  const getApplicationsList = (
-    applications: Omit<DbEventApplication, "event">[] | undefined,
-    role: AppliedRole
-  ) => {
-    if (applications && applications.length > 0) {
-      return applications.filter(
-        (application) => application.appliedRole === role
-      );
-    } else {
-      return [];
-    }
-  };
   const judgeApplications = getApplicationsList(applications, "judge");
   const stewardApplications = getApplicationsList(applications, "steward");
   const courseDesignerApplications = getApplicationsList(
@@ -69,9 +63,9 @@ const OfficialsStatus = ({
         <div className="flex flex-col">
           <p>Chef de piste</p>
           {!hasCourseDesigner ? (
-            <p className="font-normal text-sm">
+            <Button>
               {displayNumberOfApplications(courseDesignerApplications)}
-            </p>
+            </Button>
           ) : null}
         </div>
       </div>
@@ -91,9 +85,14 @@ const OfficialsStatus = ({
         <div className="flex flex-col">
           <p>Chronométreur</p>
           {!hasTimeKeeper ? (
-            <p className="font-normal text-sm">
+            <Link
+              href={`/dashboard/applications/${eventId}`}
+              className={cn(
+                buttonVariants({ variant: "secondary", size: "xs" })
+              )}
+            >
               {displayNumberOfApplications(timeKeeperApplications)}
-            </p>
+            </Link>
           ) : null}
         </div>
       </div>

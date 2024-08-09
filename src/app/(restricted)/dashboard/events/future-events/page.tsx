@@ -6,7 +6,7 @@ import { getUserData } from "@actions/users/getUserData";
 import EventCard from "@components/EventCard";
 import { buttonVariants } from "@components/ui/button";
 import { authOptions } from "@lib/auth";
-import { Card, CardContent, CardHeader } from "@ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@ui/card";
 import { Plus } from "lucide-react";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
@@ -37,7 +37,7 @@ const PastEventsPage = async () => {
   return (
     <Card>
       <CardHeader className="flex flex-row justify-between items-center">
-        <h1>Mes concours à venir</h1>
+        <CardTitle>Mes concours à venir</CardTitle>
         <Link
           href="/dashboard/events/create-new-event"
           className={cn(

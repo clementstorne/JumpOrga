@@ -5,7 +5,7 @@ import { getOrganizerData } from "@actions/users/getOrganizerData";
 import { getUserData } from "@actions/users/getUserData";
 import EventCard from "@components/EventCard";
 import { authOptions } from "@lib/auth";
-import { Card, CardContent, CardHeader } from "@ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@ui/card";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
@@ -34,7 +34,7 @@ const PastEventsPage = async () => {
   return (
     <Card>
       <CardHeader>
-        <h1>Mes concours passés</h1>
+        <CardTitle>Mes concours passés</CardTitle>
       </CardHeader>
       <CardContent>
         {events.length === 0 ? (

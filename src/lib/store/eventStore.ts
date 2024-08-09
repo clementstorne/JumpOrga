@@ -1,10 +1,10 @@
-import { DbEvent } from "@/types";
+import { DbEventWithApplications } from "@/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface EventState {
-  events: DbEvent[];
-  setEvents: (events: DbEvent[]) => void;
+  events: DbEventWithApplications[];
+  setEvents: (events: DbEventWithApplications[]) => void;
 }
 
 const useEventStore = create<EventState>()(

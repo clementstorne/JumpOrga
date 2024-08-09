@@ -64,6 +64,10 @@ export interface DbEvent {
   isVisible: boolean;
 }
 
+export interface DbEventWithApplications extends DbEvent {
+  applications: Omit<DbEventApplication, "event">[];
+}
+
 export type EventLevelId =
   | "amateur"
   | "pro"

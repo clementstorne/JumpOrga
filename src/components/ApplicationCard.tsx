@@ -1,9 +1,9 @@
 "use client";
 
 import { DbEventApplication } from "@/types";
-import { buttonVariants } from "@components/ui/button";
+import ApplicationStatusTag from "@components/ApplicationStatusTag";
 import { formatEventDates } from "@lib/dateUtils";
-import { roleTranslations, statusTranslations } from "@lib/translations";
+import { roleTranslations } from "@lib/translations";
 import { cn } from "@lib/utils";
 
 type ApplicationCardProps = Pick<
@@ -30,16 +30,7 @@ const ApplicationCard = ({
         <p>{roleTranslations[appliedRole]}</p>
       </div>
 
-      <p
-        className={cn(
-          status === "rejected" && buttonVariants({ variant: "destructive" }),
-          status === "pending" && buttonVariants({ variant: "warning" }),
-          status === "accepted" && buttonVariants({ variant: "success" }),
-          "w-full mt-4"
-        )}
-      >
-        {statusTranslations[status]}
-      </p>
+      <ApplicationStatusTag status={status} />
     </div>
   );
 };
