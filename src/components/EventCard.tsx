@@ -24,7 +24,7 @@ type EventCardProps = {
   hasTimeKeeper: boolean;
   type?: "organizer" | "official";
   officialId?: string;
-  applications: Omit<DbEventApplication, "event">[];
+  applications?: Omit<DbEventApplication, "event">[];
 };
 
 const EventCard = ({
