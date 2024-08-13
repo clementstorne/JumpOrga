@@ -17,13 +17,17 @@ const OfficialsStatusAndApplications = ({
   applicationsList,
   eventId,
 }: OfficialsStatusAndApplicationsProps) => {
+  const applicationsToReview = applicationsList.filter(
+    (application) => application.status === "pending"
+  );
+
   const displayNumberOfApplications = (
     applications: Omit<DbEventApplication, "event">[]
   ) => {
     if (applications.length === 1) {
-      return `${applications.length} candidature`;
+      return `${applications.length} nouvelle candidature`;
     } else if (applications.length > 1) {
-      return `${applications.length} candidatures`;
+      return `${applications.length} nouvelles candidatures`;
     } else {
       return "Aucune candidature";
     }
@@ -34,12 +38,12 @@ const OfficialsStatusAndApplications = ({
       <StatusIcon status={status} />
       <div className="flex flex-col">
         <p>{title}</p>
-        {applicationsList.length > 0 ? (
+        {applicationsToReview.length > 0 ? (
           <Link
             href={`/dashboard/applications/${eventId}`}
             className={cn(buttonVariants({ variant: "secondary", size: "xs" }))}
           >
-            {displayNumberOfApplications(applicationsList)}
+            {displayNumberOfApplications(applicationsToReview)}
           </Link>
         ) : null}
       </div>

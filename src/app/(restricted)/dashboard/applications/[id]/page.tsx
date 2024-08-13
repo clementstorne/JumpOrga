@@ -1,8 +1,8 @@
-import ApplicationsList from "@/components/ApplicationsList";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatEventDates } from "@/lib/dateUtils";
 import { getSingleEventWithApplications } from "@actions/events/getSingleEventWithApplications";
+import ApplicationsList from "@components/ApplicationsList";
+import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
 import { getApplicationsList } from "@lib/applicationsUtils";
+import { formatEventDates } from "@lib/dateUtils";
 import { redirect } from "next/navigation";
 
 const ApplicationPage = async ({ params }: { params: { id: string } }) => {

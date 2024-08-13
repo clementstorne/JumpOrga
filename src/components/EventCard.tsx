@@ -8,7 +8,7 @@ import { Button, buttonVariants } from "@components/ui/button";
 import { formatEventDates, isInFuture } from "@lib/dateUtils";
 import { cn } from "@lib/utils";
 import { useToast } from "@ui/use-toast";
-import { Eye, EyeOff, Pencil, Trash2 } from "lucide-react";
+import { ContactRound, Eye, EyeOff, Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
 
 type EventCardProps = {
@@ -107,6 +107,19 @@ const EventCard = ({
             >
               <Pencil />
               <span>Modifier le concours</span>
+            </Link>
+          ) : null}
+
+          {applications && applications.length > 0 ? (
+            <Link
+              className={cn(
+                buttonVariants({ variant: "default" }),
+                "w-full flex items-center justify-center gap-2"
+              )}
+              href={`/dashboard/applications/${id}`}
+            >
+              <ContactRound />
+              <span>Voir les candidatures</span>
             </Link>
           ) : null}
 
