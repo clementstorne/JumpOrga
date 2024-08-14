@@ -1,7 +1,8 @@
 "use client";
 
-import { DbEvent } from "@/types";
+import { DbEventWithApplications } from "@/types";
 import { createEvent } from "@actions/events/createEvent";
+import { deleteEvent } from "@actions/events/deleteEvent";
 import OfficialNeededField from "@components/OfficialNeededField";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateEvent } from "@lib/actions/events/updateEvent";
@@ -20,6 +21,7 @@ import {
 } from "@ui/form";
 import { Input } from "@ui/input";
 import { Switch } from "@ui/switch";
+import { useToast } from "@ui/use-toast";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -27,11 +29,12 @@ import { z } from "zod";
 type EventFormProps = {
   organizerId: string;
   action: "create" | "update";
-  event?: DbEvent;
+  event?: DbEventWithApplications;
 };
 
 const EventForm = ({ organizerId, action, event }: EventFormProps) => {
   const router = useRouter();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -72,11 +75,45 @@ const EventForm = ({ organizerId, action, event }: EventFormProps) => {
     };
 
     if (action === "update" && event) {
-      await updateEvent(event.id, data);
+      try {
+        await updateEvent(event.id, data);
+        toast({
+          description: `Votre concours a été mis à jour avec succès !`,
+        });
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          description: `${error}`,
+        });
+      }
     } else {
-      await createEvent(organizerId, data);
+      try {
+        await createEvent(organizerId, data);
+        toast({
+          description: `Votre concours a été créé avec succès !`,
+        });
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          description: `${error}`,
+        });
+      }
     }
     router.push("/dashboard");
+  };
+
+  const handleClickOnDeleteButton = async (eventId: string) => {
+    try {
+      await deleteEvent(eventId);
+      toast({
+        description: `Votre concours a été supprimé avec succès !`,
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description: `${error}`,
+      });
+    }
   };
 
   return (
@@ -235,12 +272,21 @@ const EventForm = ({ organizerId, action, event }: EventFormProps) => {
           />
         </div>
 
-        <div className={cn("w-full !mt-12 flex flex-col")}>
+        <div className={cn("w-full !mt-12 flex flex-col space-y-4")}>
           <Button size="lg" type="submit" className="font-bold">
             {action === "create"
               ? "Créer le concours"
               : "Mettre à jour le concours"}
           </Button>
+
+          {action === "update" && event ? (
+            <Button
+              variant={"destructive"}
+              onClick={() => handleClickOnDeleteButton(event.id)}
+            >
+              Supprimer le concours
+            </Button>
+          ) : null}
         </div>
       </form>
     </Form>

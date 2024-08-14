@@ -1,13 +1,13 @@
+import { getSingleEventWithApplications } from "@/lib/actions/events/getSingleEventWithApplications";
 import { SessionUser } from "@/types";
-import { getSingleEvent } from "@actions/events/getSingleEvent";
 import EventForm from "@components/EventForm";
 import { authOptions } from "@lib/auth";
-import { Card, CardContent, CardHeader } from "@ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@ui/card";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 const UpdateEventPage = async ({ params }: { params: { id: string } }) => {
-  const event = await getSingleEvent(params.id);
+  const event = await getSingleEventWithApplications(params.id);
 
   if (!event) {
     redirect("/dashboard");
@@ -30,7 +30,7 @@ const UpdateEventPage = async ({ params }: { params: { id: string } }) => {
   return (
     <Card className="w-full min-h-[calc(100svh-8rem)]">
       <CardHeader>
-        <h1>Mettre à jour un événement</h1>
+        <CardTitle>Mettre à jour un événement</CardTitle>
       </CardHeader>
       <CardContent>
         <EventForm action="update" event={event} organizerId={organizerId} />

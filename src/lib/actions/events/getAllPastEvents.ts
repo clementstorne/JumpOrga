@@ -14,6 +14,9 @@ export const getAllPastEvents = async (organizerId: string) => {
         lt: today,
       },
     },
+    include: {
+      applications: true,
+    },
     orderBy: [
       {
         start: "desc",

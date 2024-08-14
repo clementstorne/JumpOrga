@@ -14,6 +14,9 @@ export const getAllVisibleEvents = async () => {
         gte: today,
       },
     },
+    include: {
+      applications: true,
+    },
     orderBy: [
       {
         start: "asc",

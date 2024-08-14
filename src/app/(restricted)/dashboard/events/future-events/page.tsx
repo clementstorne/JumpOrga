@@ -1,24 +1,43 @@
+import { cn } from "@/lib/utils";
+import { SessionUser } from "@/types";
 import { getAllFutureEvents } from "@actions/events/getAllFutureEvents";
+import { getOrganizerData } from "@actions/users/getOrganizerData";
+import { getUserData } from "@actions/users/getUserData";
 import EventCard from "@components/EventCard";
-import { cn } from "@lib/utils";
-import { buttonVariants } from "@ui/button";
-import { Card, CardContent, CardHeader } from "@ui/card";
+import { buttonVariants } from "@components/ui/button";
+import { authOptions } from "@lib/auth";
+import { Card, CardContent, CardHeader, CardTitle } from "@ui/card";
 import { Plus } from "lucide-react";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-type FutureEventsSectionProps = {
-  organizerId: string;
-};
+const PastEventsPage = async () => {
+  const session = await getServerSession(authOptions);
 
-const FutureEventsSection = async ({
-  organizerId,
-}: FutureEventsSectionProps) => {
-  const events = await getAllFutureEvents(organizerId);
+  if (!session || !session.user) {
+    redirect("/login");
+  }
+
+  const userSession = session.user as SessionUser;
+  const user = await getUserData(userSession.id);
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  const organizer = await getOrganizerData(user.id);
+
+  if (!organizer) {
+    redirect("/login");
+  }
+
+  const events = await getAllFutureEvents(organizer.id);
 
   return (
     <Card>
       <CardHeader className="flex flex-row justify-between items-center">
-        <h2>Mes concours à venir</h2>
+        <CardTitle>Mes concours à venir</CardTitle>
         <Link
           href="/dashboard/events/create-new-event"
           className={cn(
@@ -52,4 +71,4 @@ const FutureEventsSection = async ({
   );
 };
 
-export default FutureEventsSection;
+export default PastEventsPage;

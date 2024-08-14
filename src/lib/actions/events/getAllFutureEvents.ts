@@ -14,6 +14,9 @@ export const getAllFutureEvents = async (organizerId: string) => {
         gte: today,
       },
     },
+    include: {
+      applications: true,
+    },
     orderBy: [
       {
         start: "asc",

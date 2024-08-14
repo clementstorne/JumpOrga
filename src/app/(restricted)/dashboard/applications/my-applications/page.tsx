@@ -3,9 +3,9 @@ import { getAllApplications } from "@actions/applications/getAllApplications";
 import { getOfficialData } from "@actions/users/getOfficialData";
 import { getUserData } from "@actions/users/getUserData";
 import ApplicationCard from "@components/ApplicationCard";
-import { Card, CardContent, CardHeader } from "@components/ui/card";
 import { authOptions } from "@lib/auth";
 import { cn } from "@lib/utils";
+import { Card, CardContent, CardHeader, CardTitle } from "@ui/card";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
@@ -34,7 +34,7 @@ const ApplicationPage = async () => {
   return (
     <Card>
       <CardHeader>
-        <h1>Mes candidatures</h1>
+        <CardTitle>Mes candidatures</CardTitle>
       </CardHeader>
       <CardContent>
         {applications.length === 0 ? (

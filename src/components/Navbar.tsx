@@ -3,7 +3,7 @@
 import { NavbarLink, SessionUser } from "@/types";
 import { cn } from "@lib/utils";
 import { Button } from "@ui/button";
-import { Menu, X } from "lucide-react";
+import { LogIn, LogOut, Menu, X } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,9 +22,21 @@ const USER_LINKS: NavbarLink[] = [
     href: "/dashboard",
     label: "Accueil",
   },
+  {
+    href: "/dashboard/profile",
+    label: "Mon profil",
+  },
 ];
 
 const ORGANIZER_LINKS: NavbarLink[] = [
+  {
+    href: "/dashboard/events/create-new-event",
+    label: "Créer un concours",
+  },
+  {
+    href: "/dashboard/events/future-events",
+    label: "Mes concours à venir",
+  },
   {
     href: "/dashboard/events/past-events",
     label: "Mes concours passés",
@@ -40,10 +52,6 @@ const OFFICIAL_LINKS: NavbarLink[] = [
     href: "/dashboard/applications/my-applications",
     label: "Mes candidatures",
   },
-  {
-    href: "/dashboard/profile",
-    label: "Profil",
-  },
 ];
 
 type BurgerButtonProps = {
@@ -55,7 +63,8 @@ type BurgerButtonProps = {
 const BurgerButton = ({ className, isOpen, onClick }: BurgerButtonProps) => {
   return (
     <Button
-      variant={"link"}
+      variant="none"
+      size="icon"
       className={cn("p-0", className)}
       aria-label="Ouvrir le menu"
       onClick={onClick}
@@ -71,21 +80,26 @@ const LogoutButton = () => {
 
   if (!session) {
     return (
-      <Link href="/login" className="link">
-        Se connecter
+      <Link href="/login" className={cn("link", "flex items-center gap-2")}>
+        <LogIn /> Se connecter
       </Link>
     );
   } else {
     return (
       <Button
         variant="link"
-        className="p-0 rounded-none h-7 text-lg"
+        className={cn(
+          "link",
+          "p-0 rounded-none h-7",
+          "flex items-center gap-2"
+        )}
         onClick={() => {
           signOut();
           router.push("/login");
         }}
       >
-        Se déconnecter
+        <LogOut />
+        <span>Se déconnecter</span>
       </Button>
     );
   }
@@ -142,17 +156,11 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 w-screen z-10 bg-background shadow-md",
         "flex items-center justify-between",
-        "h-20 py-2 px-5",
-        "lg:h-24 lg:py-4 lg:px-14",
+        "h-20 py-2 px-8",
+        "lg:h-24 lg:py-4",
         "animate-none"
       )}
     >
-      <BurgerButton
-        className="md:hidden absolute right-5 top-6"
-        isOpen={isOpen}
-        onClick={handleDrawer}
-      />
-
       <Link
         href={!session ? "/" : "/dashboard"}
         className="h-full flex items-center space-x-2"
@@ -160,7 +168,7 @@ const Navbar = () => {
         <Image
           className="h-full w-auto"
           src="/JumpOrga.svg"
-          alt="JumpOrga"
+          alt="Logo de JumpOrga"
           width={143}
           height={204.15}
           priority
@@ -168,11 +176,15 @@ const Navbar = () => {
         <span className="text-3xl font-black text-primary">JumpOrga</span>
       </Link>
 
+      <BurgerButton isOpen={isOpen} onClick={handleDrawer} />
+
       <nav
         className={cn(
-          "h-6 py-2",
-          "flex space-x-8 items-center justify-center",
-          "max-md:hidden"
+          "fixed top-24 lg:top-32 left-0 right-0 h-full overflow-auto bg-casablanca-50",
+          "flex flex-col justify-start items-center space-y-8 py-8",
+          "transform ease-in-out transition-all duration-300",
+          isOpen && "translate-x-0",
+          !isOpen && "-translate-x-full"
         )}
       >
         {allLinks.map((link, index) => (
@@ -181,24 +193,6 @@ const Navbar = () => {
             href={link.href}
             className={cn("link", currentPath === link.href && "border-minsk")}
           >
-            {link.label}
-          </Link>
-        ))}
-        <LogoutButton />
-      </nav>
-
-      <nav
-        data-testid="drawer"
-        className={cn(
-          "fixed top-20 left-0 right-0 h-full bg-slate-50 overflow-auto bg-background",
-          "flex flex-col justify-start items-center space-y-8 py-8",
-          "transform ease-in-out transition-all duration-300",
-          isOpen && "translate-x-0",
-          !isOpen && "-translate-x-full"
-        )}
-      >
-        {allLinks.map((link, index) => (
-          <Link key={index} href={link.href} className="link">
             {link.label}
           </Link>
         ))}

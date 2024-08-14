@@ -70,6 +70,13 @@
   }
 
   h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-black;
+  }
+
+  h1,
   h2 {
     @apply font-black text-primary;
   }
@@ -79,12 +86,20 @@
   }
 
   h2 {
+    @apply text-2xl;
+  }
+
+  h3 {
     @apply text-xl;
+  }
+
+  h4 {
+    @apply text-lg;
   }
 }
 
 @layer components {
   .link {
-    @apply text-primary font-bold text-lg border-transparent border-b-2 transition-colors hover:border-secondary delay-0 ease-in-out;
+    @apply text-primary font-bold text-2xl border-transparent border-b-2 transition-colors hover:border-secondary delay-0 ease-in-out;
   }
 }

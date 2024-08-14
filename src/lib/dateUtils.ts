@@ -56,3 +56,9 @@ export const formatEventDates = (start: string, end: string) => {
       .padStart(2, "0")}/${startYear}`;
   }
 };
+
+export const isInFuture = (dateString: string) => {
+  const today = new Date();
+  const date = new Date(dateString);
+  return date > today;
+};
