@@ -1,26 +1,31 @@
-import { getOfficialProfile } from "@/lib/actions/users/getOfficialProfil";
 import { cn } from "@/lib/utils";
+import { levelTranslations } from "@lib/translations";
+import { buttonVariants } from "@ui/button";
 import { Mail } from "lucide-react";
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
 
 type OfficialProfileProps = {
-  officialId: string;
+  user: {
+    firstname: string;
+    lastname: string;
+    email: string;
+  };
+  level: string;
 };
-const OfficialProfile = async ({ officialId }: OfficialProfileProps) => {
-  const official = await getOfficialProfile(officialId);
-
+const OfficialProfile = ({ user, level }: OfficialProfileProps) => {
   return (
     <>
       <h3>
-        {official.firstname} {official.lastname}
+        {user.firstname} {user.lastname}
       </h3>
+      {level.length > 0 ? <h4>{levelTranslations[level]}</h4> : null}
+
       <Link
         className={cn(
           buttonVariants({ variant: "default" }),
           "w-full flex items-center justify-center gap-2"
         )}
-        href={`mailto:${official.email}`}
+        href={`mailto:${user.email}`}
       >
         <Mail />
         <span>Envoyer un email</span>

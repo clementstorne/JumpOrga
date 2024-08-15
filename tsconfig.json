@@ -34,7 +34,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/tests/**/*.ts",
-    "src/tests/**/*.tsx"
+    "src/tests/**/*.tsx",
+    "seed.mjs"
   ],
   "exclude": ["node_modules"]
 }

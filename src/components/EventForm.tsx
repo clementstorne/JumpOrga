@@ -60,7 +60,7 @@ const EventForm = ({ organizerId, action, event }: EventFormProps) => {
             hasCourseDesigner: "false",
             hasSteward: "false",
             hasTimeKeeper: "false",
-            isVisible: false,
+            isVisible: true,
           },
   });
 

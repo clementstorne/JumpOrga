@@ -90,13 +90,24 @@ model Event {
   start             String             @db.VarChar(20)
   end               String             @db.VarChar(20)
   place             String
-  level             String
+  level             EventLevel
   hasJudge          Boolean            @default(false)
   hasSteward        Boolean            @default(false)
   hasCourseDesigner Boolean            @default(false)
   hasTimeKeeper     Boolean            @default(false)
   isVisible         Boolean            @default(false)
   applications      EventApplication[]
+}
+
+enum EventLevel {
+  amateur
+  pro
+  enseignants
+  cyclesLibres
+  cyclesClassiques
+  club
+  poney
+  cyclesClassiquesPoneys
 }
 
 model EventApplication {

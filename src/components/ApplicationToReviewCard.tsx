@@ -1,22 +1,30 @@
 "use client";
 
-import { DbEventApplication } from "@/types";
+import { ApplicationsToReview, AppliedRole } from "@/types";
+import ApplicationButtons from "@components/ApplicationButtons";
 import ApplicationStatusTag from "@components/ApplicationStatusTag";
+import OfficialProfile from "@components/OfficialProfile";
 import { cn } from "@lib/utils";
-import ApplicationButtons from "./ApplicationButtons";
-import OfficialProfile from "./OfficialProfile";
 
-type ApplicationToReviewCardProps = Omit<DbEventApplication, "event">;
+type ApplicationToReviewCardProps = ApplicationsToReview;
 
 const ApplicationToReviewCard = ({
   id,
-  eventId,
-  officialId,
-  appliedRole,
   status,
-  createdAt,
-  updatedAt,
+  appliedRole,
+  official,
 }: ApplicationToReviewCardProps) => {
+  const getOfficialLevel = (appliedRole: AppliedRole) => {
+    if (appliedRole === "judge") {
+      return official.judgeLevel as string;
+    } else if (appliedRole === "steward") {
+      return official.stewardLevel as string;
+    } else if (appliedRole === "courseDesigner") {
+      return official.courseDesignerLevel as string;
+    } else {
+      return "";
+    }
+  };
   return (
     <div
       className={cn(
@@ -24,7 +32,10 @@ const ApplicationToReviewCard = ({
         "h-fill flex flex-col items-center justify-between gap-4"
       )}
     >
-      <OfficialProfile officialId={officialId} />
+      <OfficialProfile
+        user={official.user}
+        level={getOfficialLevel(appliedRole)}
+      />
       <ApplicationStatusTag status={status} />
       <div
         className={cn(

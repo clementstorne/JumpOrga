@@ -3,7 +3,11 @@
 import { DbOfficial, DbUser } from "@/types";
 import { updateProfile, updateUserData } from "@actions/users/updateProfile";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { COURSE_DESIGNER_LEVELS, JUDGE_LEVELS } from "@lib/const";
+import {
+  COURSE_DESIGNER_LEVELS,
+  JUDGE_LEVELS,
+  STEWARD_LEVELS,
+} from "@lib/const";
 import formSchema from "@lib/schemas/profile";
 import { cn } from "@lib/utils";
 import { Button } from "@ui/button";
@@ -407,7 +411,7 @@ const ProfileForm = ({ user, official }: ProfileFormProps) => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {COURSE_DESIGNER_LEVELS.map((level) => (
+                          {STEWARD_LEVELS.map((level) => (
                             <SelectItem key={level.id} value={level.id}>
                               {level.label}
                             </SelectItem>

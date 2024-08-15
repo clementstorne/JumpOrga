@@ -1,7 +1,7 @@
-import { AppliedRole, DbEventApplication } from "@/types";
+import { AppliedRole } from "@/types";
 
 export const getApplicationsList = (
-  applications: Omit<DbEventApplication, "event">[] | undefined,
+  applications: any[] | undefined,
   role: AppliedRole
 ) => {
   if (applications && applications.length > 0) {

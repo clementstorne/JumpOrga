@@ -30,7 +30,7 @@ const ApplicationPage = async ({ params }: { params: { id: string } }) => {
     <Card className="w-full min-h-[calc(100svh-8rem)]">
       <CardHeader className="gap-4">
         <CardTitle>Candidatures</CardTitle>
-        <div className="flex flex-col items-start">
+        <div className="flex flex-col items-center">
           <h3>{event.place}</h3>
           <p className="font-bold">
             {formatEventDates(event.start, event.end)}
@@ -38,33 +38,28 @@ const ApplicationPage = async ({ params }: { params: { id: string } }) => {
           <p>{event.level}</p>
         </div>
       </CardHeader>
-      <CardContent>
-        <div className="flex flex-col items-start gap-2">
-          {judgeApplications.length > 0 ? (
-            <div>
-              <h2>Juge</h2>
-              <ApplicationsList applications={judgeApplications} />
-            </div>
-          ) : null}
-          {courseDesignerApplications.length > 0 ? (
-            <div>
-              <h2>Chef de piste</h2>
-              <ApplicationsList applications={courseDesignerApplications} />
-            </div>
-          ) : null}
-          {stewardApplications.length > 0 ? (
-            <div>
-              <h2>Commissaire au paddock</h2>
-              <ApplicationsList applications={stewardApplications} />
-            </div>
-          ) : null}
-          {timeKeeperApplications.length > 0 ? (
-            <div>
-              <h2>Chronométreur</h2>
-              <ApplicationsList applications={timeKeeperApplications} />
-            </div>
-          ) : null}
-        </div>
+      <CardContent className="w-full flex flex-col items-start gap-4">
+        {judgeApplications.length > 0 ? (
+          <ApplicationsList title="Juge" applications={judgeApplications} />
+        ) : null}
+        {courseDesignerApplications.length > 0 ? (
+          <ApplicationsList
+            title="Chef de piste"
+            applications={courseDesignerApplications}
+          />
+        ) : null}
+        {stewardApplications.length > 0 ? (
+          <ApplicationsList
+            title="Commissaire au paddock"
+            applications={stewardApplications}
+          />
+        ) : null}
+        {timeKeeperApplications.length > 0 ? (
+          <ApplicationsList
+            title="Chronométreur"
+            applications={timeKeeperApplications}
+          />
+        ) : null}
       </CardContent>
     </Card>
   );
