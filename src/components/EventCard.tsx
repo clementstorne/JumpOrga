@@ -24,7 +24,7 @@ type EventCardProps = {
   hasTimeKeeper: boolean;
   type?: "organizer" | "official";
   officialId?: string;
-  applications?: ApplicationsToReview[];
+  applications?: ApplicationsToReview[] | any[];
   className?: string;
 };
 
