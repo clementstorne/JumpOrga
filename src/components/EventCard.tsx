@@ -1,6 +1,6 @@
 "use client";
 
-import { DbEventApplication } from "@/types";
+import { ApplicationsToReview } from "@/types";
 import { deleteEvent } from "@actions/events/deleteEvent";
 import OfficialApplication from "@components/OfficialApplication";
 import OfficialsStatus from "@components/OfficialsStatus";
@@ -24,7 +24,7 @@ type EventCardProps = {
   hasTimeKeeper: boolean;
   type?: "organizer" | "official";
   officialId?: string;
-  applications?: Omit<DbEventApplication, "event">[];
+  applications?: ApplicationsToReview[];
   className?: string;
 };
 

@@ -1,4 +1,4 @@
-import { DbEventApplication } from "@/types";
+import { ApplicationsToReview } from "@/types";
 import StatusIcon from "@components/StatusIcon";
 import { cn } from "@lib/utils";
 import { buttonVariants } from "@ui/button";
@@ -7,7 +7,7 @@ import Link from "next/link";
 type OfficialsStatusAndApplicationsProps = {
   title: string;
   status: boolean;
-  applicationsList: Omit<DbEventApplication, "event">[];
+  applicationsList: ApplicationsToReview[];
   eventId: string;
 };
 
@@ -22,7 +22,7 @@ const OfficialsStatusAndApplications = ({
   );
 
   const displayNumberOfApplications = (
-    applications: Omit<DbEventApplication, "event">[]
+    applications: ApplicationsToReview[]
   ) => {
     if (applications.length === 1) {
       return `${applications.length} nouvelle candidature`;
