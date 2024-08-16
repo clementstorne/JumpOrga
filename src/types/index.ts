@@ -56,7 +56,7 @@ export interface DbEvent {
   start: string;
   end: string;
   place: string;
-  level: string;
+  level: EventLevelId;
   hasJudge: boolean;
   hasCourseDesigner: boolean;
   hasSteward: boolean;
