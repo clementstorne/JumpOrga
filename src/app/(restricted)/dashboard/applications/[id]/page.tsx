@@ -1,3 +1,4 @@
+import { ApplicationsToReview } from "@/types";
 import { getSingleEventWithApplications } from "@actions/events/getSingleEventWithApplications";
 import ApplicationsList from "@components/ApplicationsList";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
@@ -12,17 +13,20 @@ const ApplicationPage = async ({ params }: { params: { id: string } }) => {
     redirect("/dashboard");
   }
 
-  const judgeApplications = getApplicationsList(event.applications, "judge");
+  const judgeApplications = getApplicationsList(
+    event.applications as ApplicationsToReview[],
+    "judge"
+  );
   const stewardApplications = getApplicationsList(
-    event.applications,
+    event.applications as ApplicationsToReview[],
     "steward"
   );
   const courseDesignerApplications = getApplicationsList(
-    event.applications,
+    event.applications as ApplicationsToReview[],
     "courseDesigner"
   );
   const timeKeeperApplications = getApplicationsList(
-    event.applications,
+    event.applications as ApplicationsToReview[],
     "timeKeeper"
   );
 

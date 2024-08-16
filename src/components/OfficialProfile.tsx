@@ -18,7 +18,9 @@ const OfficialProfile = ({ user, level }: OfficialProfileProps) => {
       <h3>
         {user.firstname} {user.lastname}
       </h3>
-      {level.length > 0 ? <h4>{levelTranslations[level]}</h4> : null}
+      {level.length > 0 ? (
+        <h4 className="font-normal">{levelTranslations[level]}</h4>
+      ) : null}
 
       <Link
         className={cn(
