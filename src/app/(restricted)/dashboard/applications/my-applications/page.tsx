@@ -1,3 +1,4 @@
+import { buttonVariants } from "@/components/ui/button";
 import { SessionUser } from "@/types";
 import { getAllApplications } from "@actions/applications/getAllApplications";
 import { getOfficialData } from "@actions/users/getOfficialData";
@@ -7,6 +8,7 @@ import { authOptions } from "@lib/auth";
 import { cn } from "@lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@ui/card";
 import { getServerSession } from "next-auth";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 const ApplicationPage = async () => {
@@ -36,25 +38,31 @@ const ApplicationPage = async () => {
       <CardHeader>
         <CardTitle>Mes candidatures</CardTitle>
       </CardHeader>
-      <CardContent>
-        {applications.length === 0 ? (
+      {applications.length === 0 ? (
+        <CardContent className="flex flex-col items-center gap-2">
           <p>Vous n&apos;avez encore candidaté pour aucun concours</p>
-        ) : (
-          <>
-            <div
-              className={cn(
-                "flex flex-col space-y-4",
-                "md:grid md:grid-cols-2 md:space-y-0 md:gap-4",
-                "lg:grid-cols-3"
-              )}
-            >
-              {applications.map((application) => (
-                <ApplicationCard key={application.id} {...application} />
-              ))}
-            </div>
-          </>
-        )}
-      </CardContent>
+          <Link
+            href={"/dashboard/profile"}
+            className={cn(buttonVariants({ variant: "default", size: "lg" }))}
+          >
+            Trouver des concours
+          </Link>
+        </CardContent>
+      ) : (
+        <CardContent>
+          <div
+            className={cn(
+              "flex flex-col space-y-4",
+              "md:grid md:grid-cols-2 md:space-y-0 md:gap-4",
+              "lg:grid-cols-3"
+            )}
+          >
+            {applications.map((application) => (
+              <ApplicationCard key={application.id} {...application} />
+            ))}
+          </div>
+        </CardContent>
+      )}
     </Card>
   );
 };

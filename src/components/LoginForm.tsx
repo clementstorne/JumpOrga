@@ -1,5 +1,6 @@
 "use client";
 
+import { checkIfUserEmailIsVerified } from "@/lib/actions/users/checkIfUserEmailIsVerified";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@lib/utils";
 import { Button, buttonVariants } from "@ui/button";
@@ -12,10 +13,10 @@ import {
   FormMessage,
 } from "@ui/form";
 import { Input } from "@ui/input";
+import { useToast } from "@ui/use-toast";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -58,8 +59,8 @@ type LoginFormProps = {
 };
 
 const LoginForm = ({ className }: LoginFormProps) => {
-  const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -71,20 +72,35 @@ const LoginForm = ({ className }: LoginFormProps) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const res = await signIn("credentials", {
-        email: values.email,
-        password: values.password,
-        callbackUrl: "/dashboard",
-        redirect: false,
-      });
+      const isEmailVerified = await checkIfUserEmailIsVerified(values.email);
+      if (isEmailVerified) {
+        const res = await signIn("credentials", {
+          email: values.email,
+          password: values.password,
+          callbackUrl: "/dashboard",
+          redirect: false,
+        });
 
-      if (res?.ok && res.url) {
-        router.push(res?.url);
+        if (res && res.ok && res.url) {
+          router.push(res?.url);
+        } else {
+          toast({
+            variant: "destructive",
+            description: "L'email et/ou le mot de passe sont incorrects",
+          });
+        }
       } else {
-        setErrorMessage("L'email et/ou le mot de passe sont incorrects");
+        toast({
+          variant: "destructive",
+          description:
+            "Votre compte n'est pas encore activé. Veuillez vérifier vos emails et suivre le lien d'activation avant de vous connecter.",
+        });
       }
     } catch (error) {
-      console.error(error);
+      toast({
+        variant: "destructive",
+        description: `${error}`,
+      });
     }
   };
 
@@ -105,10 +121,6 @@ const LoginForm = ({ className }: LoginFormProps) => {
             d&apos;obstacles.
           </p>
         </div>
-
-        {errorMessage && (
-          <p className="text-sm font-bold text-destructive">{errorMessage}</p>
-        )}
 
         <FormField
           control={form.control}
