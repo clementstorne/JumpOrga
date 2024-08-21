@@ -10,3 +10,15 @@ export const statusTranslations: Record<string, string> = {
   accepted: "Acceptée",
   rejected: "Refusée",
 };
+
+export const levelTranslations: Record<string, string> = {
+  club: "Club",
+  candidatNational: "Candidat National",
+  national: "National",
+  candidatNationalElite: "Candidat National Élite",
+  nationalElite: "National Élite",
+  internationalLevel1: "International Level 1",
+  internationalLevel2: "International Level 2",
+  internationalLevel3: "International Level 3",
+  internationalLevel4: "International Level 4",
+};

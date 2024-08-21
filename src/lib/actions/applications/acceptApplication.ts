@@ -32,6 +32,15 @@ export const acceptApplication = async (id: string) => {
         hasJudge: true,
       },
     });
+    await prisma.eventApplication.updateMany({
+      where: {
+        eventId: existingApplication.eventId,
+        appliedRole: "judge",
+      },
+      data: {
+        status: "rejected",
+      },
+    });
   } else if (existingApplication.appliedRole === "steward") {
     await prisma.event.update({
       where: {
@@ -39,6 +48,15 @@ export const acceptApplication = async (id: string) => {
       },
       data: {
         hasSteward: true,
+      },
+    });
+    await prisma.eventApplication.updateMany({
+      where: {
+        eventId: existingApplication.eventId,
+        appliedRole: "steward",
+      },
+      data: {
+        status: "rejected",
       },
     });
   } else if (existingApplication.appliedRole === "courseDesigner") {
@@ -50,6 +68,15 @@ export const acceptApplication = async (id: string) => {
         hasCourseDesigner: true,
       },
     });
+    await prisma.eventApplication.updateMany({
+      where: {
+        eventId: existingApplication.eventId,
+        appliedRole: "courseDesigner",
+      },
+      data: {
+        status: "rejected",
+      },
+    });
   } else if (existingApplication.appliedRole === "timeKeeper") {
     await prisma.event.update({
       where: {
@@ -57,6 +84,15 @@ export const acceptApplication = async (id: string) => {
       },
       data: {
         hasTimeKeeper: true,
+      },
+    });
+    await prisma.eventApplication.updateMany({
+      where: {
+        eventId: existingApplication.eventId,
+        appliedRole: "timeKeeper",
+      },
+      data: {
+        status: "rejected",
       },
     });
   }

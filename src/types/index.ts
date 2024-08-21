@@ -110,3 +110,22 @@ export interface DbEventApplication {
   updatedAt: Date;
   event: DbEvent;
 }
+
+interface OfficialInformations {
+  official: {
+    judgeLevel?: JudgeLevel;
+    courseDesignerLevel?: CourseDesignerLevel;
+    stewardLevel?: StewardLevel;
+    user: {
+      firstname: string;
+      lastname: string;
+      email: string;
+    };
+  };
+}
+
+export type ApplicationsToReview = Pick<
+  DbEventApplication,
+  "id" | "eventId" | "appliedRole" | "status"
+> &
+  OfficialInformations;

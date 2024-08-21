@@ -1,4 +1,4 @@
-import { DbEventApplication } from "@/types";
+import { ApplicationsToReview } from "@/types";
 import OfficialsStatusAndApplications from "@components/OfficialsStatusAndApplications";
 import { getApplicationsList } from "@lib/applicationsUtils";
 
@@ -8,7 +8,7 @@ type OfficialsStatusProps = {
   hasCourseDesigner: boolean;
   hasSteward: boolean;
   hasTimeKeeper: boolean;
-  applications?: Omit<DbEventApplication, "event">[];
+  applications?: ApplicationsToReview[];
 };
 
 const OfficialsStatus = ({

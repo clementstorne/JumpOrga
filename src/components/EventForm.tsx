@@ -1,6 +1,6 @@
 "use client";
 
-import { DbEventWithApplications } from "@/types";
+import { DbEvent, DbEventWithApplications } from "@/types";
 import { createEvent } from "@actions/events/createEvent";
 import { deleteEvent } from "@actions/events/deleteEvent";
 import OfficialNeededField from "@components/OfficialNeededField";
@@ -29,7 +29,7 @@ import { z } from "zod";
 type EventFormProps = {
   organizerId: string;
   action: "create" | "update";
-  event?: DbEventWithApplications;
+  event?: DbEventWithApplications | DbEvent;
 };
 
 const EventForm = ({ organizerId, action, event }: EventFormProps) => {
@@ -60,7 +60,7 @@ const EventForm = ({ organizerId, action, event }: EventFormProps) => {
             hasCourseDesigner: "false",
             hasSteward: "false",
             hasTimeKeeper: "false",
-            isVisible: false,
+            isVisible: true,
           },
   });
 

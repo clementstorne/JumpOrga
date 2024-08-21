@@ -1,6 +1,6 @@
 "use client";
 
-import { DbEventApplication } from "@/types";
+import { ApplicationsToReview } from "@/types";
 import { deleteEvent } from "@actions/events/deleteEvent";
 import OfficialApplication from "@components/OfficialApplication";
 import OfficialsStatus from "@components/OfficialsStatus";
@@ -24,7 +24,8 @@ type EventCardProps = {
   hasTimeKeeper: boolean;
   type?: "organizer" | "official";
   officialId?: string;
-  applications?: Omit<DbEventApplication, "event">[];
+  applications?: ApplicationsToReview[] | any[];
+  className?: string;
 };
 
 const EventCard = ({
@@ -41,6 +42,7 @@ const EventCard = ({
   type = "organizer",
   officialId,
   applications,
+  className,
 }: EventCardProps) => {
   const { toast } = useToast();
 
@@ -63,7 +65,8 @@ const EventCard = ({
       <div
         className={cn(
           "p-4 flex items-center justify-center rounded-md border-2 border-input bg-background",
-          "h-fill flex flex-col items-start justify-between gap-4"
+          "h-fill flex flex-col items-start justify-between gap-4",
+          className
         )}
       >
         <div className="w-full flex flex-col items-center">
@@ -139,7 +142,8 @@ const EventCard = ({
       <div
         className={cn(
           "p-4 flex items-center justify-center rounded-md border-2 border-input bg-background",
-          "h-fill flex flex-col items-start justify-start gap-4"
+          "h-fill flex flex-col items-start justify-start gap-4",
+          className
         )}
       >
         <div className="w-full flex flex-col items-center">

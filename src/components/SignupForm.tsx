@@ -17,7 +17,7 @@ import { Input } from "@ui/input";
 import { RadioGroup, RadioGroupItem } from "@ui/radio-group";
 import { useToast } from "@ui/use-toast";
 import Link from "next/link";
-import { useState } from "react";
+import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -115,8 +115,6 @@ type SignupFormProps = {
 };
 
 const SignupForm = ({ className }: SignupFormProps) => {
-  const [errorMessage, setErrorMessage] = useState("");
-
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -138,17 +136,25 @@ const SignupForm = ({ className }: SignupFormProps) => {
       const userAlreadyExists = await checkIfUserExists(email);
 
       if (userAlreadyExists) {
-        setErrorMessage(`L'email ${email} est déjà utilisé`);
+        toast({
+          variant: "destructive",
+          description: `L'email ${email} est déjà utilisé`,
+        });
         return;
       } else {
         toast({
           title: "Bienvenue chez JumpOrga !",
-          description: "Votre compte a été créé avec succès.",
+          description:
+            "Votre compte a été créé avec succès ! Veuillez vérifier vos emails pour activer votre compte et finaliser votre inscription.",
         });
         await signUp(values);
+        redirect("/login");
       }
     } catch (error) {
-      console.error(error);
+      toast({
+        variant: "destructive",
+        description: `${error}`,
+      });
     }
   };
 
@@ -169,10 +175,6 @@ const SignupForm = ({ className }: SignupFormProps) => {
             ci-dessous pour créer votre compte.
           </p>
         </div>
-
-        {errorMessage && (
-          <p className="text-sm font-bold text-red-700">{errorMessage}</p>
-        )}
 
         <FormField
           control={form.control}

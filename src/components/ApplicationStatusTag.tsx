@@ -9,10 +9,13 @@ const ApplicationStatusTag = ({ status }: ApplicationStatusTagProps) => {
   return (
     <p
       className={cn(
-        status === "rejected" && buttonVariants({ variant: "destructive" }),
-        status === "pending" && buttonVariants({ variant: "warning" }),
-        status === "accepted" && buttonVariants({ variant: "success" }),
-        "w-full mt-4"
+        status === "rejected" &&
+          buttonVariants({ variant: "destructive", size: "xs" }),
+        status === "pending" &&
+          buttonVariants({ variant: "warning", size: "xs" }),
+        status === "accepted" &&
+          buttonVariants({ variant: "success", size: "xs" }),
+        "px-8 my-4"
       )}
     >
       {statusTranslations[status]}

@@ -43,6 +43,14 @@ const EventsList = ({ officialId }: EventsListProps) => {
                 {...event}
                 type={"official"}
                 officialId={officialId}
+                className={
+                  event.hasJudge &&
+                  event.hasCourseDesigner &&
+                  event.hasSteward &&
+                  event.hasTimeKeeper
+                    ? "hidden"
+                    : ""
+                }
               />
             ))}
           </div>
