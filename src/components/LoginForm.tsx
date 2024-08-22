@@ -154,7 +154,7 @@ const LoginForm = ({ className }: LoginFormProps) => {
         />
 
         <div className="w-full flex justify-end">
-          <Link href={"/forgot-password"} className="link">
+          <Link href={"/forgot-password"} className="link text-base">
             Mot de passe oublié ?
           </Link>
         </div>
