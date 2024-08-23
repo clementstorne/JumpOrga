@@ -26,9 +26,9 @@ const RootLayout = ({
           <Navbar />
           <main
             className={cn(
-              "min-h-lvh p-4 pt-24 bg-casablanca-50",
-              "md:p-8 md:pt-28",
-              "lg:pt-32"
+              "min-h-lvh bg-casablanca-50",
+              "p-4 md:p-8",
+              "pt-24 md:pt-28 lg:pt-32"
             )}
           >
             {children}

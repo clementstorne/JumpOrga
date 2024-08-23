@@ -130,6 +130,7 @@ const config = {
       },
       backgroundImage: {
         auth: "url('/cavaliere-cheval-noir.webp')",
+        hero: "linear-gradient(rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.5)),url('/concours-saut-dobstacles-equestre-jumpOrga.webp')",
       },
     },
   },
